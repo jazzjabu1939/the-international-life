@@ -26,6 +26,7 @@ The experience is **The International Life**. Darwin is the opening location and
 
 5. **Brother's apartment**
    - Student arrives, encounters the anonymous console, glasses, and gloves, but has no cassette yet.
+   - The apartment is above a bar. The student may put in earplugs to mute the music or use the house keys to visit the bar below, where the same music continues.
    - The brother or room provides the reason to walk to the mall.
    - Objective becomes: explore the Darwin Free Trade Zone.
 
