@@ -15,15 +15,17 @@ A shareable browser experience that turns the opening of *The International Life
 ## Vertical slice
 
 1. Boot/title screen
-2. Darwin baggage claim: identify and collect the UMass backpack
+2. Darwin baggage claim: identify and collect the worn leather duffel
 3. Main arrivals hall: locate the information desk
-4. Ask about the hostel; compare bus, shuttle, and taxi against an A$50 wallet
+4. Ask how to reach the brother's apartment; compare bus, shuttle, and taxi against an A$50 wallet
 5. Transport transition with the chosen route and remaining cash
-6. “Second week in Australia” mall exploration
-7. Vendor dialogue and cassette choice
-8. Kelsey's anonymous console, glasses, and gloves
-9. Virtual Kyoto threshold and course invitation
-10. Kyoto city syllabus
+6. Brother's apartment: inspect the empty console and recover the note with directions
+7. Walk from the Esplanade to the Darwin Free Trade Zone
+8. “Second week in Australia” mall exploration
+9. Vendor dialogue and cassette choice
+10. Kelsey's anonymous console, glasses, and gloves
+11. Virtual Kyoto threshold and course invitation
+12. Kyoto city syllabus
 
 ## Technical approach
 
@@ -44,7 +46,7 @@ A shareable browser experience that turns the opening of *The International Life
 
 ## Implemented interaction grammar
 
-- Nine scenes: boot, baggage claim, main arrivals, transit, condominium, mall, vendor, console, and Virtual Kyoto
+- Ten scenes: boot, baggage claim, main arrivals, transit, brother's apartment, walk, mall, vendor, console, and Virtual Kyoto
 - Forward progression by button or Right Arrow; return to visited scenes with the chapter rail or Left Arrow
 - A scene-specific "Look closer" observation layer
 - A cassette-selection moment at the vendor; the route does not advance until Virtual Kyoto is selected
@@ -53,8 +55,8 @@ A shareable browser experience that turns the opening of *The International Life
 - Four optimized original background illustrations: late-1980s Darwin dusk, the anonymous licensed mall, the unlicensed cassette vendor, and the Virtual Kyoto threshold (`assets/`, about 900 KB combined)
 - A responsive Kyoto city-syllabus page with the six-part learning-abroad cycle, a four-encounter Kyoto plan, resource links, and the Sixth Tape invitation
 - “Whole city in there” used as the vendor's promise, console-scene refrain, and Kyoto threshold
-- A bounded airport help interaction that recognizes questions about the hostel, cost, speed, safety, bus, shuttle, and taxi, with transport cards as a no-failure fallback
-- Persistent airport state: UMass backpack inventory, A$50 starting wallet, route cost, and remaining balance
+- A bounded airport help interaction that recognizes questions about the brother's apartment, cost, speed, safety, bus, shuttle, and taxi, with transport cards as a no-failure fallback
+- Persistent airport state: collected-bag inventory, A$50 starting wallet, route cost, and remaining balance
 
 ## Verification record — August 14
 
@@ -73,14 +75,25 @@ A shareable browser experience that turns the opening of *The International Life
 - Clean local-server rerun — pass
 - `node --check game.js` — pass
 - Playwright readiness suite — 5/5 pass (desktop route, phone route, keyboard/reduced motion, accessible dialog names, baggage-state/backtracking persistence)
-- Baggage-claim checkpoint rerun — correct/decoy bag interactions, persistent backpack inventory, and forward return to visited chapters verified; chapter-rail progress regression repaired
+- Baggage-claim checkpoint rerun — correct/decoy bag interactions, persistent bag inventory, and forward return to visited chapters verified; chapter-rail progress regression repaired
 - Test harness repaired for reproducibility: `@playwright/test` is declared in `package.json`; setup and validation commands are documented in `README.md`
 - Review status: ready for local inspection; hosted preview remains the only unchecked weekend definition-of-done item
 - Content caveat: the Kyoto city syllabus is a working destination architecture, not a finalized reading/program guide
 
+## Darwin interaction-loop checkpoint — August 15, 10:30 EDT
+
+- Restored the 1907×825 baggage panorama as the production airport background, aligned the leather-duffel target and three decoy hotspots for desktop and phone crops, and preloaded the airport artwork.
+- Rewrote the information desk around the brother's Esplanade apartment. Taxi is visibly marked as the story route; bus and shuttle remain usable alternatives with route-specific transition writing.
+- Verified the A$50 wallet consequences for all three choices: bus leaves A$46, shuttle A$38, and taxi A$22. The balance remains visible through transit, apartment, walk, and mall arrival.
+- Replaced the time jump with an interactive brother's-apartment scene. The student can inspect the glasses/gloves/empty console, must read the brother's note, and only then unlocks the walk.
+- Added a distinct heat-after-dark walk scene that ends at the Darwin Free Trade Zone threshold.
+- Fixed focus restoration shifting the clipped scene container after the information-desk dialog; the game container now remains at scroll position `[0, 0]`.
+- Verification: `node --check game.js` passed; Playwright readiness suite passed 7/7 at 1440×900 and 390×844, including baggage asset/hotspots, canonical taxi route, both budget alternatives, wallet persistence, apartment gate, walk transition, keyboard/reduced motion, dialog names, backtracking, page errors, and document overflow.
+- Scope boundary: this checkpoint did not rebuild or re-evaluate the later vendor purchases, Taipei branch, cassette return, or city thresholds.
+
 ## Next refinement lane
 
-1. Replace the current CSS baggage hall with a richer illustrated scene while keeping the functional UMass-bag hotspot clear and accessible.
+1. Re-check the restored baggage panorama's crop and hotspot alignment if the supported phone-width range expands below 390 px.
 2. Decide whether the bounded local attendant is sufficient for class or should be backed by a dedicated server-side agent; never expose an API key in this static client.
 3. Replace the provisional console geometry with art that feels like late-1980s near-future domestic hardware without naming a brand or over-explaining Gibson's technology.
 4. Verify and deepen the Kyoto readings, films, study-abroad pathways, and Japan-specific academic resources.

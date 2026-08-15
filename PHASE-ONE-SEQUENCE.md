@@ -12,7 +12,7 @@ The experience is **The International Life**. Darwin is the opening location and
 
 2. **Darwin airport — baggage carousel**
    - Student scans the restored panoramic baggage artwork.
-   - Several bags can be inspected; the khaki backpack with the faded UMass patch is the correct one.
+   - Several bags can be inspected; the worn tan leather duffel near the center of the belt is the correct one.
    - Collecting it updates inventory and unlocks the arrivals hall.
 
 3. **Darwin airport — main arrivals**
@@ -69,3 +69,7 @@ A first-time student can start at **The International Life**, finish the Darwin 
 - **16:30–18:00 — Human-usability pass:** run the entire route at desktop and phone sizes without using test selectors or prior knowledge; fix unclear affordances first.
 - **18:00–19:30 — Content and accessibility pass:** verify story boundaries, keyboard use, reduced motion, wallet/inventory state, links, and city labels.
 - **19:30–20:00 — Phase checkpoint:** record what actually works, capture screenshots, leave the local review URL running, and report only verified completion or explicit remaining gaps.
+
+## 10:30 Darwin-loop evidence
+
+Completed and verified the sequence through the mall threshold: restored baggage panorama plus four hotspots; discoverable information desk; taxi story route and usable bus/shuttle alternatives; A$28/A$4/A$12 deductions from the shared A$50 wallet; brother's apartment with an inspectable empty console and required directions note; and a separate walk-to-mall scene. `node --check game.js` passed and the Playwright suite passed 7/7 at desktop and phone sizes. The later vendor, purchase branches, return-to-console sequence, and city thresholds were not claimed as part of this checkpoint.

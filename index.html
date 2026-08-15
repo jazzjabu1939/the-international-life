@@ -7,6 +7,8 @@
   <meta name="description" content="A playable prologue to The International Life, inspired by William Gibson's Academy Leader.">
   <title>The International Life — Darwin</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/darwin-baggage-carousel.webp" as="image" type="image/webp">
+  <link rel="preload" href="assets/darwin-arrivals-hall.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -39,8 +41,8 @@
     </aside>
     <aside class="travel-hud" id="travel-hud" hidden>
       <span>WALLET <strong id="wallet">A$50</strong></span>
-      <span>PACK <strong id="pack-status">MISSING</strong></span>
-      <span>DESTINATION <strong>TOP END STUDENT HOUSE</strong></span>
+      <span>BAG <strong id="bag-status">MISSING</strong></span>
+      <span>DESTINATION <strong id="destination-status">BROTHER'S APARTMENT</strong></span>
     </aside>
 
     <div class="reticle" aria-hidden="true">+</div>
@@ -62,7 +64,7 @@
     <form method="dialog"><button class="close" aria-label="Close credits">×</button></form>
     <p class="dialog-kicker">SOURCE BOUNDARY</p>
     <h2 id="credits-title">What is imagined, and what is Gibson?</h2>
-    <p>The airport, taxi, and condominium form an imagined prologue. They are not presented as passages from William Gibson.</p>
+    <p>The airport, journey, brother's apartment, and walk to the mall form an imagined prologue. They are not presented as passages from William Gibson.</p>
     <p>The mall, unlicensed vendor, scratched cassette, and Virtual Kyoto threshold adapt the Kelsey episode in William Gibson's <cite>Academy Leader</cite> (1991), published in <cite>Cyberspace: First Steps</cite>.</p>
     <p>This classroom prototype uses original code and abstract environment art. It quotes no extended passage from the story.</p>
   </dialog>
@@ -87,16 +89,16 @@
     <form method="dialog"><button class="close" aria-label="Leave information desk">×</button></form>
     <p class="dialog-kicker">DARWIN AIRPORT INFORMATION</p>
     <h2 id="information-desk-title">How can I help?</h2>
-    <div class="desk-chat" id="desk-chat" aria-live="polite"><p><strong>Attendant:</strong> Evening. Where are you trying to get to?</p></div>
+    <div class="desk-chat" id="desk-chat" aria-live="polite"><p><strong>Attendant:</strong> Evening. Where are you trying to get to?</p><p><strong>You:</strong> My brother's apartment, near the Esplanade.</p></div>
     <form id="desk-form" class="desk-form">
       <label for="desk-question">Ask a question</label>
-      <div><input id="desk-question" autocomplete="off" placeholder="How do I get to the student hostel?"><button type="submit">ASK</button></div>
+      <div><input id="desk-question" autocomplete="off" placeholder="What is the quickest way to the Esplanade?"><button type="submit">ASK</button></div>
     </form>
     <p class="fallback-label">Or choose after comparing the routes:</p>
     <div class="transport-options" id="transport-options">
       <button type="button" data-mode="bus" data-cost="4"><b>BUS / A$4</b><small>55 min · one change · short walk</small></button>
-      <button type="button" data-mode="shuttle" data-cost="12"><b>SHUTTLE / A$12</b><small>35 min · shared · hostel door</small></button>
-      <button type="button" data-mode="taxi" data-cost="28"><b>TAXI / A$28</b><small>18 min · direct · easiest</small></button>
+      <button type="button" data-mode="shuttle" data-cost="12"><b>SHUTTLE / A$12</b><small>35 min · shared · two blocks away</small></button>
+      <button type="button" class="canonical-route" data-mode="taxi" data-cost="28"><b>TAXI / A$28</b><small>18 min · direct to the door</small><em>STORY ROUTE</em></button>
     </div>
   </dialog>
 

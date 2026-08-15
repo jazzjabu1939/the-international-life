@@ -7,8 +7,10 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await page.setViewportSize(viewport);
     await page.goto('http://127.0.0.1:4173');
     await page.getByRole('button', { name: /begin arrival/i }).click();
-    await expect(page.getByText(/click the luggage to inspect it/i)).toBeVisible();
-    await page.getByRole('button', { name: /inspect black roller bag/i }).click();
+    await expect(page.getByText(/scan the panorama/i)).toBeVisible();
+    await expect(page.locator('.scene--airport .environment')).toHaveCSS('background-image', /darwin-baggage-carousel\.webp/);
+    await expect(page.locator('.decoy-hotspot')).toHaveCount(3);
+    await page.getByRole('button', { name: /inspect dark suitcase/i }).click();
     await expect(page.getByText(/not yours/i)).toBeVisible();
     await page.locator('.bag-hotspot').click();
     await expect(page.getByText('COLLECTED', { exact: true })).toBeVisible();
@@ -18,16 +20,26 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
 
     await page.keyboard.press('ArrowRight');
     await expect(page.getByRole('dialog', { name: 'How can I help?' })).toBeVisible();
-    await page.getByLabel('Ask a question').fill('What is the cheapest safe way to the hostel?');
+    await page.getByLabel('Ask a question').fill('What is the fastest way to my brother’s apartment?');
     await page.getByRole('button', { name: 'ASK' }).click();
-    await expect(page.getByText(/public bus is A\$4/i)).toBeVisible();
-    await page.getByRole('button', { name: /shuttle/i }).click();
-    await expect(page.getByText('A$38', { exact: true })).toBeVisible();
-    await page.getByRole('button', { name: /take the shuttle/i }).click();
-    await expect(page.getByText(/you have A\$38 left/i)).toBeVisible();
+    await expect(page.getByText(/taxi is the direct route/i)).toBeVisible();
+    await page.getByRole('button', { name: /taxi/i }).click();
+    await expect(page.getByText('A$22', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /take the taxi/i }).click();
+    await expect(page.getByText(/fare leaves A\$22/i)).toBeVisible();
 
-    await page.getByRole('button', { name: /continue/i }).click();
-    await page.getByRole('button', { name: /two weeks later/i }).click();
+    await page.getByRole('button', { name: /arrive at the apartment/i }).click();
+    await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
+    expect(await page.locator('#game').evaluate(element => [element.scrollLeft, element.scrollTop])).toEqual([0, 0]);
+    await page.getByRole('button', { name: /inspect the anonymous console/i }).click();
+    await expect(page.getByText(/empty cassette slot/i)).toBeVisible();
+    await page.getByRole('button', { name: /read your brother's note/i }).click();
+    await expect(page.getByRole('button', { name: /walk to the mall/i })).toBeEnabled();
+    await expect(page.getByText('A$22', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /walk to the mall/i }).click();
+    await expect(page.getByText('WALK TO THE MALL', { exact: true })).toBeVisible();
+    expect(await page.locator('#game').evaluate(element => [element.scrollLeft, element.scrollTop])).toEqual([0, 0]);
+    await page.getByRole('button', { name: /enter the free trade zone/i }).click();
     await expect(page.getByText("GIBSON'S STORY BEGINS HERE")).toBeVisible();
     await page.getByRole('button', { name: /approach the table/i }).click();
     await page.getByRole('button', { name: 'VIRTUAL KYOTO', exact: true }).click();
@@ -62,6 +74,26 @@ test('reduced motion and keyboard safeguards', async ({ page }) => {
   await expect(page.getByLabel('Ask a question')).toHaveValue('taxi?');
 });
 
+for (const route of [
+  { mode: 'bus', balance: 'A$46', consequence: /one change and a final walk/i },
+  { mode: 'shuttle', balance: 'A$38', consequence: /turns toward the Esplanade/i }
+]) {
+  test(`${route.mode} fare remains consequential through apartment arrival`, async ({ page }) => {
+    await page.goto('http://127.0.0.1:4173');
+    await page.getByRole('button', { name: /begin arrival/i }).click();
+    await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
+    await page.getByRole('button', { name: /enter main arrivals/i }).click();
+    await page.getByRole('button', { name: 'Open the airport information desk' }).click();
+    await page.getByRole('button', { name: new RegExp(route.mode, 'i') }).click();
+    await expect(page.getByText(route.balance, { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: new RegExp(`take the ${route.mode}`, 'i') }).click();
+    await expect(page.getByText(route.consequence)).toBeVisible();
+    await page.getByRole('button', { name: /arrive at the apartment/i }).click();
+    await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
+    await expect(page.getByText(route.balance, { exact: true })).toBeVisible();
+  });
+}
+
 test('supporting dialogs expose their visible headings as accessible names', async ({ page }) => {
   await page.goto('http://127.0.0.1:4173');
   await page.getByRole('button', { name: 'Read the story' }).click();
@@ -74,7 +106,7 @@ test('supporting dialogs expose their visible headings as accessible names', asy
 test('baggage state and visited chapters survive backtracking', async ({ page }) => {
   await page.goto('http://127.0.0.1:4173');
   await page.getByRole('button', { name: /begin arrival/i }).click();
-  await page.getByRole('button', { name: /collect the backpack/i }).click();
+  await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
   await page.getByRole('button', { name: /enter main arrivals/i }).click();
 
   await page.getByRole('button', { name: /go to scene: darwin international airport/i }).click();

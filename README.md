@@ -34,7 +34,9 @@ The tests use the installed Brave browser and cover the complete route at deskto
 - Read the story: open the accessible transcript
 - Sources & credits: review the imagined/adapted source boundary
 
-At baggage claim, the normal Continue action remains locked until the student identifies the backpack marked with the UMass patch. The next arrivals-hall scene asks the student to locate the information desk, ask natural-language questions, and choose bus, shuttle, or taxi. A visible three-route fallback ensures the experience never depends on a conversational response. The A$50 wallet and transport cost carry into the transit scene.
+At baggage claim, the normal Continue action remains locked until the student identifies the worn tan leather duffel near the center of the restored panorama. The next arrivals-hall scene asks the student to locate the information desk, ask natural-language questions, and choose bus, shuttle, or taxi to the brother's apartment. A visible three-route fallback ensures the experience never depends on a conversational response. Taxi is the marked story route, while every choice deducts its fare from the A$50 wallet and carries the resulting balance forward.
+
+At the brother's apartment, the student can inspect the console, wired glasses, and gloves, but the cassette slot is empty. Reading the brother's note unlocks the separate walk-to-mall transition and changes the destination to the Darwin Free Trade Zone.
 
 At the vendor, choosing either decoy cassette deliberately blocks progression; select **VIRTUAL KYOTO** to enter Kelsey's console scene and the final Virtual Kyoto threshold.
 
