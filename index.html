@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101410">
+  <meta name="description" content="A playable prologue to The International Life, inspired by William Gibson's Academy Leader.">
+  <title>The International Life — Darwin</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#story-panel">Skip to story</a>
+  <main id="game" class="scene scene--boot" data-scene="boot">
+    <div class="world" id="world" aria-hidden="true"></div>
+
+    <header class="hud">
+      <span id="place">DARWIN / NORTHERN TERRITORY</span>
+      <span id="date">LATE 1980s</span>
+    </header>
+
+    <nav class="chapter-rail" aria-label="Story progress" id="chapter-rail"></nav>
+
+    <section class="panel" id="story-panel" aria-live="polite" tabindex="-1">
+      <p class="eyebrow" id="eyebrow">THE INTERNATIONAL LIFE PRESENTS</p>
+      <h1 id="title">THE INTERNATIONAL<br>LIFE</h1>
+      <p class="lede" id="copy">A first-person journey through an airport, an anonymous mall, and a city hidden inside a scratched cassette.</p>
+      <div class="choices" id="choices"></div>
+      <div class="actions">
+        <button class="action" id="action" type="button">BEGIN ARRIVAL <span aria-hidden="true">→</span></button>
+        <button class="observe" id="observe" type="button">Look closer</button>
+      </div>
+      <p class="observation" id="observation" aria-live="polite" hidden></p>
+    </section>
+
+    <aside class="objective">
+      <span>OBJECTIVE</span>
+      <strong id="objective">Begin somewhere unfamiliar.</strong>
+    </aside>
+    <aside class="travel-hud" id="travel-hud" hidden>
+      <span>WALLET <strong id="wallet">A$50</strong></span>
+      <span>PACK <strong id="pack-status">MISSING</strong></span>
+      <span>DESTINATION <strong>TOP END STUDENT HOUSE</strong></span>
+    </aside>
+
+    <div class="reticle" aria-hidden="true">+</div>
+    <footer>
+      <button class="text-button" id="access" type="button">Read the story</button>
+      <span id="progress">01 / 07</span>
+      <button class="text-button" id="credits-button" type="button">Sources &amp; credits</button>
+    </footer>
+  </main>
+
+  <dialog id="reader" aria-labelledby="reader-title">
+    <form method="dialog"><button class="close" aria-label="Close story transcript">×</button></form>
+    <p class="dialog-kicker">ACCESSIBLE STORY ROUTE</p>
+    <h2 id="reader-title">The International Life</h2>
+    <div id="transcript"></div>
+  </dialog>
+
+  <dialog id="credits" aria-labelledby="credits-title">
+    <form method="dialog"><button class="close" aria-label="Close credits">×</button></form>
+    <p class="dialog-kicker">SOURCE BOUNDARY</p>
+    <h2 id="credits-title">What is imagined, and what is Gibson?</h2>
+    <p>The airport, taxi, and condominium form an imagined prologue. They are not presented as passages from William Gibson.</p>
+    <p>The mall, unlicensed vendor, scratched cassette, and Virtual Kyoto threshold adapt the Kelsey episode in William Gibson's <cite>Academy Leader</cite> (1991), published in <cite>Cyberspace: First Steps</cite>.</p>
+    <p>This classroom prototype uses original code and abstract environment art. It quotes no extended passage from the story.</p>
+  </dialog>
+
+  <dialog id="course-door" class="course-door" aria-labelledby="course-door-title">
+    <form method="dialog"><button class="close" aria-label="Close course invitation">×</button></form>
+    <p class="dialog-kicker">THE INTERNATIONAL LIFE / FALL 2026</p>
+    <h2 id="course-door-title">Five tapes are waiting.</h2>
+    <p>You entered through someone else's cassette. During the semester, each tape becomes a door into a real place, a real person, and a different way of paying attention.</p>
+    <ol class="tape-list">
+      <li><span>01</span><strong>Taipei ’85</strong><small>Beginning before you are ready</small></li>
+      <li><span>02</span><strong>Manila ’86</strong><small>The forced adventure beginning</small></li>
+      <li><span>03</span><strong>Old Kyoto</strong><small>The discipline of attention</small></li>
+      <li><span>04</span><strong>Stockholm</strong><small>Trust made visible</small></li>
+      <li><span>05</span><strong>Auckland–Otago Road</strong><small>The virtue of quiet</small></li>
+    </ol>
+    <p class="sixth-tape"><span>06</span><strong>The final tape does not exist yet.</strong> You will find its person, enter its place, and make it.</p>
+    <a class="course-link" href="course.html">ENTER THE CITY SYLLABUS <span aria-hidden="true">→</span></a>
+  </dialog>
+
+  <dialog id="information-desk" class="information-desk" aria-labelledby="information-desk-title">
+    <form method="dialog"><button class="close" aria-label="Leave information desk">×</button></form>
+    <p class="dialog-kicker">DARWIN AIRPORT INFORMATION</p>
+    <h2 id="information-desk-title">How can I help?</h2>
+    <div class="desk-chat" id="desk-chat" aria-live="polite"><p><strong>Attendant:</strong> Evening. Where are you trying to get to?</p></div>
+    <form id="desk-form" class="desk-form">
+      <label for="desk-question">Ask a question</label>
+      <div><input id="desk-question" autocomplete="off" placeholder="How do I get to the student hostel?"><button type="submit">ASK</button></div>
+    </form>
+    <p class="fallback-label">Or choose after comparing the routes:</p>
+    <div class="transport-options" id="transport-options">
+      <button type="button" data-mode="bus" data-cost="4"><b>BUS / A$4</b><small>55 min · one change · short walk</small></button>
+      <button type="button" data-mode="shuttle" data-cost="12"><b>SHUTTLE / A$12</b><small>35 min · shared · hostel door</small></button>
+      <button type="button" data-mode="taxi" data-cost="28"><b>TAXI / A$28</b><small>18 min · direct · easiest</small></button>
+    </div>
+  </dialog>
+
+  <noscript><p class="noscript">This experience needs JavaScript. The source boundary: the Darwin arrival is imagined; the mall, vendor, cassette, and virtual Kyoto are adapted from William Gibson's <cite>Academy Leader</cite>.</p></noscript>
+  <script src="game.js"></script>
+</body>
+</html>
