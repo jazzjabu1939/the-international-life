@@ -41,6 +41,13 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await expect(page.getByRole('heading', { name: /downstairs/i })).toBeVisible();
     await expect(page.getByText(/same music/i)).toBeVisible();
     await expect(page.getByText(/sound: bar \/ music \+ voices/i)).toBeVisible();
+    await page.getByRole('button', { name: /sit at the bar and talk/i }).click();
+    await expect(page.getByRole('dialog', { name: /what’ll ya have/i })).toBeVisible();
+    await expect(page.getByText(/how ya goin/i)).toBeVisible();
+    await page.getByLabel(/talk to the bartender/i).fill('Is the music always this loud?');
+    await page.getByRole('button', { name: 'SAY' }).click();
+    await expect(page.getByText(/always this loud on saturday/i)).toBeVisible();
+    await page.getByRole('button', { name: /leave the bar conversation/i }).click();
     await page.getByRole('button', { name: /return upstairs/i }).click();
     await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
     await expect(page.getByText(/sound: muted \/ earplugs/i)).toBeVisible();

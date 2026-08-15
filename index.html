@@ -102,6 +102,23 @@
     </div>
   </dialog>
 
+  <dialog id="bartender-dialog" class="information-desk bartender-dialog" aria-labelledby="bartender-title">
+    <form method="dialog"><button class="close" aria-label="Leave the bar conversation">×</button></form>
+    <p class="dialog-kicker">THE BAR / ONE FLOOR BELOW</p>
+    <h2 id="bartender-title">What’ll ya have?</h2>
+    <div class="desk-chat bartender-chat" id="bartender-chat" aria-live="polite"><p><strong>Bartender:</strong> “How ya goin?” she says, setting down a glass. “What’ll ya have? Do ya need a menu?”</p></div>
+    <form id="bartender-form" class="desk-form">
+      <label for="bartender-question">Talk to the bartender</label>
+      <div><input id="bartender-question" autocomplete="off" placeholder="What beer do you recommend?"><button type="submit">SAY</button></div>
+    </form>
+    <p class="fallback-label">Conversation starters:</p>
+    <div class="transport-options bartender-prompts" id="bartender-prompts">
+      <button type="button" data-prompt="Do you have a menu?"><b>ASK FOR THE MENU</b><small>Food, beer, and something without alcohol</small></button>
+      <button type="button" data-prompt="What is Darwin like?"><b>ASK ABOUT DARWIN</b><small>Hear a local answer</small></button>
+      <button type="button" data-prompt="Is the music always this loud?"><b>ASK ABOUT THE MUSIC</b><small>And the apartment upstairs</small></button>
+    </div>
+  </dialog>
+
   <noscript><p class="noscript">This experience needs JavaScript. The source boundary: the Darwin arrival is imagined; the mall, vendor, cassette, and virtual Kyoto are adapted from William Gibson's <cite>Academy Leader</cite>.</p></noscript>
   <script src="game.js"></script>
 </body>

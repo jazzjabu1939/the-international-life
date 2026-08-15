@@ -125,7 +125,7 @@ function renderChoices(scene){
 
 function render(){
   const scene=scenes[index];
-  game.querySelectorAll('.bag-hotspot, .decoy-hotspot, .desk-hotspot, .console-hotspot, .note-hotspot, .earplug-hotspot, .keys-hotspot, .interaction-hint, .sound-status').forEach(hotspot=>hotspot.remove());
+  game.querySelectorAll('.bag-hotspot, .decoy-hotspot, .desk-hotspot, .console-hotspot, .note-hotspot, .earplug-hotspot, .keys-hotspot, .bartender-hotspot, .interaction-hint, .sound-status').forEach(hotspot=>hotspot.remove());
   game.className=`scene scene--${scene.id}`;
   game.dataset.scene=scene.id;
   world.innerHTML=`<div class="environment">${scene.art}</div><div class="vignette"></div><div class="grain"></div>`;
@@ -177,6 +177,13 @@ function render(){
     const keys=document.createElement('button');keys.type='button';keys.className='keys-hotspot';keys.setAttribute('aria-label','Take the house keys and go to the bar below');keys.innerHTML='<span>HOUSE KEYS</span><small>GO DOWNSTAIRS</small>';keys.addEventListener('click',()=>{index=scenes.findIndex(item=>item.id==='bar');furthestIndex=Math.max(furthestIndex,index);render();});game.append(keys);
     if(!mallDirectionsFound){action.disabled=true;action.textContent='FIND YOUR BROTHER’S NOTE';}
     else {noteHotspot.disabled=true;noteHotspot.classList.add('collected');noteHotspot.innerHTML='<span>DIRECTIONS</span><small>FREE TRADE ZONE</small>';objective.textContent='Walk to the Darwin Free Trade Zone.';action.innerHTML='WALK TO THE MALL <span aria-hidden="true">→</span>';}
+  }
+  if(scene.id==='bar'){
+    const bartender=document.createElement('button'); bartender.type='button'; bartender.className='bartender-hotspot';
+    bartender.setAttribute('aria-label','Sit at the bar and talk with the bartender');
+    bartender.innerHTML='<span>SIT AT THE BAR</span><small>TALK TO THE BARTENDER</small>';
+    bartender.addEventListener('click',()=>{const dialog=$('#bartender-dialog');dialog.showModal();setTimeout(()=>$('#bartender-question').focus(),50);});
+    game.append(bartender);
   }
   renderChoices(scene); renderRail();
   document.title=`${scene.place} — The International Life`;
@@ -235,4 +242,32 @@ $('#transport-options').addEventListener('click',event=>{
   deskDialog.close(); objective.textContent=`Reach your brother’s apartment by ${transportMode}. A$${walletBalance} remains.`; action.innerHTML=`TAKE THE ${transportMode.toUpperCase()} <span aria-hidden="true">→</span>`;
 });
 deskDialog.addEventListener('click',event=>{if(event.target===deskDialog)deskDialog.close();});
+
+const bartenderDialog=$('#bartender-dialog'), bartenderChat=$('#bartender-chat');
+let bartenderTurn=0;
+function bartenderReply(question){
+  const q=question.toLowerCase();
+  if(/menu|food|eat|hungry/.test(q))return 'Menu’s short, love: a meat pie, a toasted sandwich, or chips. Beer on tap, ginger ale, lemon squash, and water. The pie has survived longer than some marriages, so I’d take the toastie.';
+  if(/beer|lager|drink|recommend|have/.test(q))return 'Cold lager is what most of this lot are having. Ginger ale if you want a clear head. Water if Darwin’s heat has already had a go at you. I’m a bartender, not a recruitment officer—you choose.';
+  if(/darwin|australia|town|city|here/.test(q))return 'Darwin’s small enough to meet everyone twice and hot enough to forgive nobody. People arrive for six months, then wake up ten years later owning a boat they can’t quite afford.';
+  if(/music|loud|noise|sleep|upstairs|brother|apartment|earplug/.test(q))return 'Always this loud on Saturday. Your brother knew that when he took the room upstairs—cheap rent, expensive sleep. Earplugs are behind the lamp, unless he’s lost them again.';
+  if(/name|who are you|yourself/.test(q))return 'Everyone calls me Red. Very imaginative bunch. Six feet tall, red hair, freckles—apparently the mystery defeated them.';
+  if(/how ya goin|how are you|good|fine/.test(q))return 'Flat out, which is better than flat broke. You’ve just arrived, haven’t you? Still looking at the ceiling fans as though they require instructions.';
+  if(/woman|women|filipino|dancer|dance|work/.test(q))return 'People here are working, same as me. Ask them their names before you invent their stories. That rule’ll serve you well outside this bar too.';
+  if(/no|nothing|just looking|not drinking/.test(q))return 'No worries. Sit down anyway. A person can learn more over a lemon squash than over three bad beers.';
+  const replies=[
+    'That’s a larger question than this bar usually gets before midnight. Try me again, but give me the short version.',
+    'Could be. Then again, half the men in here have been confidently wrong since opening time.',
+    'You’re new, so I’ll give you one piece of local advice: ask twice, listen once, and don’t trust a distance described as “just down the road.”'
+  ];
+  return replies[bartenderTurn++%replies.length];
+}
+function sendBartenderMessage(question){
+  const safe=question.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  bartenderChat.insertAdjacentHTML('beforeend',`<p><strong>You:</strong> ${safe}</p><p><strong>Bartender:</strong> ${bartenderReply(question)}</p>`);
+  bartenderChat.scrollTop=bartenderChat.scrollHeight;
+}
+$('#bartender-form').addEventListener('submit',event=>{event.preventDefault();const input=$('#bartender-question'),question=input.value.trim();if(!question)return;sendBartenderMessage(question);input.value='';});
+$('#bartender-prompts').addEventListener('click',event=>{const button=event.target.closest('button[data-prompt]');if(button)sendBartenderMessage(button.dataset.prompt);});
+bartenderDialog.addEventListener('click',event=>{if(event.target===bartenderDialog)bartenderDialog.close();});
 render();
