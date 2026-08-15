@@ -33,6 +33,8 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     expect(await page.locator('#game').evaluate(element => [element.scrollLeft, element.scrollTop])).toEqual([0, 0]);
     await page.getByRole('button', { name: /inspect the anonymous console/i }).click();
     await expect(page.getByText(/empty cassette slot/i)).toBeVisible();
+    await page.getByRole('button', { name: /take the earplugs/i }).click();
+    await expect(page.getByText(/bass still reaches the bedframe/i)).toBeVisible();
     await page.getByRole('button', { name: /read your brother's note/i }).click();
     await expect(page.getByRole('button', { name: /walk to the mall/i })).toBeEnabled();
     await expect(page.getByText('A$22', { exact: true })).toBeVisible();
@@ -52,6 +54,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await page.getByRole('link', { name: /enter the city syllabus/i }).click();
     await expect(page).toHaveURL(/course\.html$/);
     await expect(page.getByRole('heading', { name: 'KYOTO', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: /return to the international life home page/i }).first()).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
     expect(errors).toEqual([]);
