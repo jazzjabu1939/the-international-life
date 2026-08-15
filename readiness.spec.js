@@ -30,16 +30,20 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
 
     await page.getByRole('button', { name: /arrive at the apartment/i }).click();
     await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
+    await expect(page.getByText(/sound: muffled through floor/i)).toBeVisible();
     expect(await page.locator('#game').evaluate(element => [element.scrollLeft, element.scrollTop])).toEqual([0, 0]);
     await page.getByRole('button', { name: /inspect the anonymous console/i }).click();
     await expect(page.getByText(/empty cassette slot/i)).toBeVisible();
     await page.getByRole('button', { name: /put in the earplugs/i }).click();
     await expect(page.getByText(/music disappears/i)).toBeVisible();
+    await expect(page.getByText(/sound: muted \/ earplugs/i)).toBeVisible();
     await page.getByRole('button', { name: /house keys and go to the bar/i }).click();
     await expect(page.getByRole('heading', { name: /downstairs/i })).toBeVisible();
     await expect(page.getByText(/same music/i)).toBeVisible();
+    await expect(page.getByText(/sound: bar \/ music \+ voices/i)).toBeVisible();
     await page.getByRole('button', { name: /return upstairs/i }).click();
     await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
+    await expect(page.getByText(/sound: muted \/ earplugs/i)).toBeVisible();
     await page.getByRole('button', { name: /read your brother's note/i }).click();
     await expect(page.getByRole('button', { name: /walk to the mall/i })).toBeEnabled();
     await expect(page.getByText('A$22', { exact: true })).toBeVisible();

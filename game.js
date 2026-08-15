@@ -20,25 +20,62 @@ let walletBalance = 50;
 let transportMode = '';
 let mallDirectionsFound = false;
 let earplugsTaken = false;
-let audioContext=null, musicGain=null, musicTimer=null;
+let audioContext=null, musicGain=null, musicFilter=null, crowdGain=null, musicTimer=null, soundtrackStep=0;
 const $ = (selector) => document.querySelector(selector);
 const game=$('#game'), world=$('#world'), title=$('#title'), copy=$('#copy'), eye=$('#eyebrow'), action=$('#action'), place=$('#place'), date=$('#date'), objective=$('#objective'), progress=$('#progress'), observation=$('#observation'), observe=$('#observe'), choices=$('#choices'), rail=$('#chapter-rail'), travelHud=$('#travel-hud'), destinationStatus=$('#destination-status');
 
-function musicThump(){
-  if(!audioContext||!musicGain)return;
-  const now=audioContext.currentTime, kick=audioContext.createOscillator(), envelope=audioContext.createGain();
-  kick.type='sine'; kick.frequency.setValueAtTime(105,now); kick.frequency.exponentialRampToValueAtTime(46,now+.16);
-  envelope.gain.setValueAtTime(.9,now); envelope.gain.exponentialRampToValueAtTime(.001,now+.22);
-  kick.connect(envelope).connect(musicGain); kick.start(now); kick.stop(now+.23);
+function shortTone(type,frequency,duration,volume,endFrequency=frequency){
+  const now=audioContext.currentTime, oscillator=audioContext.createOscillator(), envelope=audioContext.createGain();
+  oscillator.type=type; oscillator.frequency.setValueAtTime(frequency,now);
+  oscillator.frequency.exponentialRampToValueAtTime(Math.max(20,endFrequency),now+duration);
+  envelope.gain.setValueAtTime(volume,now); envelope.gain.exponentialRampToValueAtTime(.001,now+duration);
+  oscillator.connect(envelope).connect(musicGain); oscillator.start(now); oscillator.stop(now+duration+.02);
 }
-function setMusicLevel(level){
+function noiseHit(duration,volume){
+  const frames=Math.max(1,Math.floor(audioContext.sampleRate*duration));
+  const buffer=audioContext.createBuffer(1,frames,audioContext.sampleRate), data=buffer.getChannelData(0);
+  for(let i=0;i<frames;i++)data[i]=(Math.random()*2-1)*(1-i/frames);
+  const source=audioContext.createBufferSource(), filter=audioContext.createBiquadFilter(), gain=audioContext.createGain();
+  source.buffer=buffer; filter.type='highpass'; filter.frequency.value=5200; gain.gain.value=volume;
+  source.connect(filter).connect(gain).connect(musicGain); source.start();
+}
+function soundtrackBeat(){
+  if(!audioContext)return;
+  const bass=[55,55,65.41,49];
+  if(soundtrackStep%2===0)shortTone('sine',105,.22,.95,44);
+  if(soundtrackStep%4===0)shortTone('square',bass[(soundtrackStep/4)%bass.length],.38,.13);
+  noiseHit(soundtrackStep%4===2?.09:.035,soundtrackStep%4===2?.12:.055);
+  soundtrackStep=(soundtrackStep+1)%16;
+}
+function initializeSoundtrack(){
+  const AudioEngine=window.AudioContext||window.webkitAudioContext;
+  if(!AudioEngine)return false;
+  if(audioContext)return true;
+  audioContext=new AudioEngine();
+  musicGain=audioContext.createGain(); musicGain.gain.value=0;
+  musicFilter=audioContext.createBiquadFilter(); musicFilter.type='lowpass'; musicFilter.frequency.value=260;
+  musicGain.connect(musicFilter).connect(audioContext.destination);
+
+  const duration=5, buffer=audioContext.createBuffer(1,audioContext.sampleRate*duration,audioContext.sampleRate), data=buffer.getChannelData(0);
+  let smoothed=0;
+  for(let i=0;i<data.length;i++){smoothed=smoothed*.985+(Math.random()*2-1)*.015;data[i]=smoothed;}
+  const crowd=audioContext.createBufferSource(), crowdFilter=audioContext.createBiquadFilter();
+  crowd.buffer=buffer; crowd.loop=true; crowdFilter.type='bandpass'; crowdFilter.frequency.value=720; crowdFilter.Q.value=.7;
+  crowdGain=audioContext.createGain(); crowdGain.gain.value=0;
+  crowd.connect(crowdFilter).connect(crowdGain).connect(musicFilter); crowd.start();
+  soundtrackBeat(); musicTimer=setInterval(soundtrackBeat,280);
+  return true;
+}
+function setSoundscape(mode){
   try{
-    const AudioEngine=window.AudioContext||window.webkitAudioContext;
-    if(!AudioEngine)return;
-    if(!audioContext){audioContext=new AudioEngine();musicGain=audioContext.createGain();musicGain.gain.value=0;musicGain.connect(audioContext.destination);}
-    audioContext.resume(); musicGain.gain.setTargetAtTime(level,audioContext.currentTime,.08);
-    if(level>0&&!musicTimer){musicThump();musicTimer=setInterval(musicThump,560);}
-    if(level===0&&musicTimer){clearInterval(musicTimer);musicTimer=null;}
+    if(mode==='off'&&!audioContext)return;
+    if(!initializeSoundtrack())return;
+    audioContext.resume();
+    const presets={bar:{music:.16,filter:6500,crowd:.085},bedroom:{music:.055,filter:260,crowd:.006},off:{music:0,filter:260,crowd:0}};
+    const preset=presets[mode]||presets.off, now=audioContext.currentTime;
+    musicGain.gain.setTargetAtTime(preset.music,now,.08);
+    musicFilter.frequency.setTargetAtTime(preset.filter,now,.12);
+    crowdGain.gain.setTargetAtTime(preset.crowd,now,.08);
   }catch(error){/* Sound is an enhancement; the route remains usable without it. */}
 }
 
@@ -88,7 +125,7 @@ function renderChoices(scene){
 
 function render(){
   const scene=scenes[index];
-  game.querySelectorAll('.bag-hotspot, .decoy-hotspot, .desk-hotspot, .console-hotspot, .note-hotspot, .earplug-hotspot, .keys-hotspot, .interaction-hint').forEach(hotspot=>hotspot.remove());
+  game.querySelectorAll('.bag-hotspot, .decoy-hotspot, .desk-hotspot, .console-hotspot, .note-hotspot, .earplug-hotspot, .keys-hotspot, .interaction-hint, .sound-status').forEach(hotspot=>hotspot.remove());
   game.className=`scene scene--${scene.id}`;
   game.dataset.scene=scene.id;
   world.innerHTML=`<div class="environment">${scene.art}</div><div class="vignette"></div><div class="grain"></div>`;
@@ -102,7 +139,12 @@ function render(){
   $('#bag-status').textContent=bagCollected?'COLLECTED':'MISSING';
   destinationStatus.textContent=['condo','walk','mall'].includes(scene.id)?'DARWIN FREE TRADE ZONE':"BROTHER'S APARTMENT";
   action.hidden=false; action.disabled=false;
-  if(scene.id==='condo')setMusicLevel(earplugsTaken?0:.035); else if(scene.id==='bar')setMusicLevel(.11); else setMusicLevel(0);
+  if(scene.id==='condo')setSoundscape(earplugsTaken?'off':'bedroom'); else if(scene.id==='bar')setSoundscape('bar'); else setSoundscape('off');
+  if(scene.id==='condo'||scene.id==='bar'){
+    const status=document.createElement('p'); status.className='sound-status'; status.setAttribute('aria-live','polite');
+    status.textContent=scene.id==='bar'?'SOUND: BAR / MUSIC + VOICES':earplugsTaken?'SOUND: MUTED / EARPLUGS':'SOUND: MUFFLED THROUGH FLOOR';
+    game.append(status);
+  }
   if(scene.id==='airport'){
     const hint=document.createElement('p'); hint.className='interaction-hint'; hint.textContent='SCAN THE PANORAMA · INSPECT THE LUGGAGE'; game.append(hint);
     const decoys=[['decoy-hotspot decoy-a','Dark suitcase.'],['decoy-hotspot decoy-b','Dark brown suitcase.'],['decoy-hotspot decoy-c','Small brown case.']];
@@ -131,7 +173,7 @@ function render(){
     const hint=document.createElement('p'); hint.className='interaction-hint apartment-hint'; hint.textContent='INSPECT THE ROOM'; game.append(hint);
     const consoleHotspot=document.createElement('button'); consoleHotspot.type='button'; consoleHotspot.className='console-hotspot'; consoleHotspot.setAttribute('aria-label','Inspect the anonymous console, glasses, and gloves'); consoleHotspot.innerHTML='<span>CONSOLE</span><small>NO CASSETTE</small>'; consoleHotspot.addEventListener('click',()=>{observation.hidden=false;observation.textContent='The console has wired glasses, gloves, and an empty cassette slot. It cannot take you anywhere yet.';}); game.append(consoleHotspot);
     const noteHotspot=document.createElement('button'); noteHotspot.type='button'; noteHotspot.className='note-hotspot'; noteHotspot.setAttribute('aria-label',"Read your brother's note"); noteHotspot.innerHTML='<span>READ NOTE</span><small>ON THE TABLE</small>'; noteHotspot.addEventListener('click',()=>{mallDirectionsFound=true;noteHotspot.disabled=true;noteHotspot.classList.add('collected');noteHotspot.innerHTML='<span>DIRECTIONS</span><small>FREE TRADE ZONE</small>';objective.textContent='Walk to the Darwin Free Trade Zone.';action.disabled=false;action.innerHTML='WALK TO THE MALL <span aria-hidden="true">→</span>';observation.hidden=false;observation.textContent='“Working late. Food in the fridge. The Free Trade Zone is a walk from here—follow the Esplanade east.” A rough map fills the rest of the page.';}); game.append(noteHotspot);
-    const earplugs=document.createElement('button'); earplugs.type='button'; earplugs.className='earplug-hotspot'; earplugs.setAttribute('aria-label','Put in the earplugs from the bedside table'); earplugs.innerHTML=earplugsTaken?'<span>EARPLUGS</span><small>MUSIC MUTED</small>':'<span>EARPLUGS</span><small>PUT THEM IN</small>'; earplugs.disabled=earplugsTaken; earplugs.addEventListener('click',()=>{earplugsTaken=true;setMusicLevel(0);earplugs.disabled=true;earplugs.classList.add('collected');earplugs.innerHTML='<span>EARPLUGS</span><small>MUSIC MUTED</small>';observation.hidden=false;observation.textContent='The music disappears. The bedframe still trembles faintly, but the room is finally quiet.';}); game.append(earplugs);
+    const earplugs=document.createElement('button'); earplugs.type='button'; earplugs.className='earplug-hotspot'; earplugs.setAttribute('aria-label','Put in the earplugs from the bedside table'); earplugs.innerHTML=earplugsTaken?'<span>EARPLUGS</span><small>MUSIC MUTED</small>':'<span>EARPLUGS</span><small>PUT THEM IN</small>'; earplugs.disabled=earplugsTaken; earplugs.addEventListener('click',()=>{earplugsTaken=true;setSoundscape('off');earplugs.disabled=true;earplugs.classList.add('collected');earplugs.innerHTML='<span>EARPLUGS</span><small>MUSIC MUTED</small>';const status=$('.sound-status');if(status)status.textContent='SOUND: MUTED / EARPLUGS';observation.hidden=false;observation.textContent='The music disappears. The bedframe still trembles faintly, but the room is finally quiet.';}); game.append(earplugs);
     const keys=document.createElement('button');keys.type='button';keys.className='keys-hotspot';keys.setAttribute('aria-label','Take the house keys and go to the bar below');keys.innerHTML='<span>HOUSE KEYS</span><small>GO DOWNSTAIRS</small>';keys.addEventListener('click',()=>{index=scenes.findIndex(item=>item.id==='bar');furthestIndex=Math.max(furthestIndex,index);render();});game.append(keys);
     if(!mallDirectionsFound){action.disabled=true;action.textContent='FIND YOUR BROTHER’S NOTE';}
     else {noteHotspot.disabled=true;noteHotspot.classList.add('collected');noteHotspot.innerHTML='<span>DIRECTIONS</span><small>FREE TRADE ZONE</small>';objective.textContent='Walk to the Darwin Free Trade Zone.';action.innerHTML='WALK TO THE MALL <span aria-hidden="true">→</span>';}
