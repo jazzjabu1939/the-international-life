@@ -21,10 +21,14 @@ const game=$('#game'), world=$('#world'), title=$('#title'), copy=$('#copy'), ey
 
 function collectBag(){
   bagCollected=true;
+  game.classList.add('bag-ready');
   $('#pack-status').textContent='COLLECTED';
   objective.textContent='Carry the backpack into the arrivals hall.';
   action.disabled=false;
   action.innerHTML='ENTER MAIN ARRIVALS <span aria-hidden="true">→</span>';
+  observation.hidden=false;
+  observation.textContent='That is yours. Backpack collected. Continue into the main arrivals hall.';
+  game.querySelectorAll('.decoy-hotspot, .interaction-hint').forEach(element=>element.remove());
   const hotspot=$('.bag-hotspot'); if(hotspot){hotspot.classList.add('collected');hotspot.textContent='UMASS PACK COLLECTED';hotspot.disabled=true;}
 }
 

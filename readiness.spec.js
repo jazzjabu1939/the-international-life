@@ -12,6 +12,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await expect(page.getByText(/not yours/i)).toBeVisible();
     await page.locator('.bag-hotspot').click();
     await expect(page.getByText('COLLECTED', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: /enter main arrivals/i })).toBeVisible();
     await page.getByRole('button', { name: /enter main arrivals/i }).click();
     await page.getByRole('button', { name: 'Open the airport information desk' }).click();
 
