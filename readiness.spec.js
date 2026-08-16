@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 async function reachVendor(page, mode = 'taxi') {
   await page.getByRole('button', { name: /begin arrival/i }).click();
-  await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
+  await page.getByRole('button', { name: /small red ribbon/i }).click();
   await page.getByRole('button', { name: /enter main arrivals/i }).click();
   await page.getByRole('button', { name: 'Open the airport information desk' }).click();
   await page.getByRole('button', { name: new RegExp(mode, 'i') }).click();
@@ -35,11 +35,10 @@ for (const { viewport, tape, tapeShort } of [
     await expect(page.getByText(/scan the panorama/i)).toBeVisible();
     await expect(page.locator('.scene--airport .environment')).toHaveCSS('background-image', /darwin-baggage-carousel\.webp/);
     await expect(page.locator('.decoy-hotspot')).toHaveCount(3);
-    await page.getByRole('button', { name: /inspect dark suitcase/i }).click();
-    await expect(page.getByText(/not yours/i)).toBeVisible();
-    await page.getByRole('button', { name: /show me the leather duffel/i }).click();
-    await expect(page.getByText(/select its leather duffel label/i)).toBeVisible();
-    await expect(page.locator('.bag-hotspot')).toBeFocused();
+    await page.getByRole('button', { name: /looks familiar/i }).click();
+    await expect(page.getByText(/no red ribbon/i)).toBeVisible();
+    await page.getByRole('button', { name: /remember the check-in/i }).click();
+    await expect(page.getByText(/little red ribbon/i)).toBeVisible();
     await page.locator('.bag-hotspot').click();
     await expect(page.getByText('COLLECTED', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: /enter main arrivals/i })).toBeVisible();
@@ -178,7 +177,7 @@ for (const route of [
   test(`${route.mode} fare remains consequential through apartment arrival`, async ({ page }) => {
     await page.goto('http://127.0.0.1:4173');
     await page.getByRole('button', { name: /begin arrival/i }).click();
-    await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
+    await page.getByRole('button', { name: /small red ribbon/i }).click();
     await page.getByRole('button', { name: /enter main arrivals/i }).click();
     await page.getByRole('button', { name: 'Open the airport information desk' }).click();
     await page.getByRole('button', { name: new RegExp(route.mode, 'i') }).click();
@@ -203,7 +202,7 @@ test('supporting dialogs expose their visible headings as accessible names', asy
 test('baggage state and visited chapters survive backtracking', async ({ page }) => {
   await page.goto('http://127.0.0.1:4173');
   await page.getByRole('button', { name: /begin arrival/i }).click();
-  await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
+  await page.getByRole('button', { name: /small red ribbon/i }).click();
   await page.getByRole('button', { name: /enter main arrivals/i }).click();
 
   await page.getByRole('button', { name: /go to scene: darwin international airport/i }).click();

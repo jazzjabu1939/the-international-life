@@ -1,6 +1,6 @@
 const scenes = [
   {id:'boot', place:'DARWIN / NORTHERN TERRITORY', date:'LATE 1980s', eye:'A COURSE ABOUT BEGINNING ELSEWHERE', title:'THE INTERNATIONAL<br>LIFE', copy:'Your journey begins in Darwin: an airport, a brother’s apartment, an anonymous mall, and a choice between whole cities hidden inside scratched cassettes.', button:'BEGIN ARRIVAL', objective:'Arrive before you understand the map.', observe:'Darwin is the beginning. The cassette will determine where the course opens next.', art:'<i class="sun"></i><i class="coast"></i><i class="plane"></i>'},
-  {id:'airport', place:'DARWIN INTERNATIONAL AIRPORT', date:'DAY 01 / 18:42', eye:'IMAGINED PROLOGUE / INTERACTIVE', title:'FIND YOUR<br>BAG', copy:'The conveyor shudders into motion. Your bag is the worn tan leather duffel near the center of the belt. Inspect the luggage and collect it.', button:'LOCATE YOUR BAG', objective:'Find the tan leather duffel on the moving belt.', observe:'Arrival begins with a small panic: every bag looks plausible until one detail makes it yours.', art:'<i class="window"></i><i class="belt"></i><i class="luggage luggage-a"></i><i class="luggage luggage-b"></i><i class="luggage luggage-c"></i><i class="bag"></i><i class="sign">ARRIVALS</i><i class="belt-direction">LUGGAGE →</i>'},
+  {id:'airport', place:'DARWIN INTERNATIONAL AIRPORT', date:'DAY 01 / 18:42', eye:'IMAGINED PROLOGUE / INTERACTIVE', title:'FIND YOUR<br>BAG', copy:'At check-in in the U.S., you confirmed that you packed the bag yourself. Mom wanted to tie a small red ribbon to its handle. You told her that was silly—you would recognize your own luggage. Now the conveyor shudders into motion, carrying bag after nearly identical bag.', button:"REMEMBER MOM'S ADVICE", objective:'Identify your suitcase among the similar bags.', observe:'Arrival begins with a small panic: recognition is easy until the familiar appears in multiples.', art:'<i class="window"></i><i class="belt"></i><i class="luggage luggage-a"></i><i class="luggage luggage-b"></i><i class="luggage luggage-c"></i><i class="bag"></i><i class="sign">ARRIVALS</i><i class="belt-direction">LUGGAGE →</i>'},
   {id:'arrivals', place:'DARWIN AIRPORT / MAIN ARRIVALS', date:'DAY 01 / 18:51', eye:'TOO MUCH INFORMATION', title:'FIND<br>YOUR WAY', copy:'Signs compete with voices, fluorescent light, luggage carts, advertisements, and the warm dusk beyond the doors. Your brother left an address near the Esplanade. Somewhere in the room is a person you can ask how to reach it.', button:'FIND THE INFORMATION DESK', objective:'Locate the information desk.', observe:'Competence abroad often begins with admitting that you do not know what to do next.', art:''},
   {id:'transit', place:'DARWIN / IN TRANSIT', date:'DAY 01 / 19:16', eye:'IN TRANSIT', title:'NO MAP<br>YET', copy:'Darwin passes in sodium light, palms, low buildings, and unfamiliar constellations.', button:'ARRIVE AT THE APARTMENT', objective:'Reach your brother’s apartment.', observe:'The route knows exactly where you are. You do not.', art:'<i class="road"></i><i class="mirror"></i><i class="lights"></i><i class="dash"></i>'},
   {id:'condo', place:"BROTHER'S APARTMENT / ABOVE THE BAR", date:'DAY 01 / 23:47', eye:'THE MUSIC COMES THROUGH THE FLOOR', title:"BROTHER'S<br>PLACE", copy:'The apartment sits directly above a bar. Bass thumps through the floor while a huge palm-tree sign outside the window flashes green, then yellow. An old caged ceiling fan swivels back and forth with the nightclub dancers below. Sleep will require earplugs.', button:'LOOK AROUND THE ROOM', objective:'Find the earplugs—and why the console cannot start.', observe:'The fan turns, the palm flashes, and the bass arrives through the bedframe. The glamorous foreign night becomes less glamorous at midnight.', art:'<i class="blinds"></i><i class="fan"></i><i class="balcony"></i><i class="apartment-console"></i><i class="apartment-glasses"></i><i class="apartment-gloves"></i><i class="apartment-note"></i>'},
@@ -84,18 +84,18 @@ function collectBag(){
   bagCollected=true;
   game.classList.add('bag-ready');
   $('#bag-status').textContent='COLLECTED';
-  objective.textContent='Carry the leather duffel into the arrivals hall.';
+  objective.textContent='Carry your suitcase into the arrivals hall.';
   action.disabled=false;
   action.innerHTML='ENTER MAIN ARRIVALS <span aria-hidden="true">→</span>';
   observation.hidden=false;
-  observation.textContent='That is yours. Leather duffel collected. Continue into the main arrivals hall.';
+  observation.textContent='The small red ribbon is still on the handle. Mom was right. Continue into the main arrivals hall.';
   game.querySelectorAll('.decoy-hotspot, .interaction-hint').forEach(element=>element.remove());
   const hotspot=$('.bag-hotspot'); if(hotspot){hotspot.classList.add('collected');hotspot.textContent='YOUR BAG — COLLECTED';hotspot.disabled=true;}
 }
 
 function rejectBag(label){
   observation.hidden=false;
-  observation.textContent=`${label} Not yours. Look for the worn tan leather duffel near the center of the belt.`;
+  observation.textContent=`${label} It looks like yours, but there is no red ribbon on the handle. Keep looking.`;
 }
 
 function guideToHotspot(selector,message){
@@ -189,13 +189,13 @@ function render(){
   }
   if(scene.id==='airport'){
     const hint=document.createElement('p'); hint.className='interaction-hint'; hint.textContent='SCAN THE PANORAMA · INSPECT THE LUGGAGE'; game.append(hint);
-    const decoys=[['decoy-hotspot decoy-a','Dark suitcase.'],['decoy-hotspot decoy-b','Dark brown suitcase.'],['decoy-hotspot decoy-c','Small brown case.']];
+    const decoys=[['decoy-hotspot decoy-a','This brown suitcase is about the right size.'],['decoy-hotspot decoy-b','This dark suitcase looks familiar.'],['decoy-hotspot decoy-c','This brown case could be yours.']];
     decoys.forEach(([className,label])=>{const decoy=document.createElement('button');decoy.type='button';decoy.className=className;decoy.setAttribute('aria-label',`Inspect ${label}`);decoy.innerHTML='<span aria-hidden="true">?</span>';decoy.addEventListener('click',()=>rejectBag(label));game.append(decoy);});
-    const hotspot=document.createElement('button'); hotspot.type='button'; hotspot.className='bag-hotspot'; hotspot.setAttribute('aria-label','Collect the tan leather duffel bag'); hotspot.innerHTML='<span>LEATHER DUFFEL</span><small>IS THIS YOUR BAG?</small>'; hotspot.addEventListener('click',collectBag); game.append(hotspot);
-    if(!bagCollected){action.innerHTML='SHOW ME THE LEATHER DUFFEL <span aria-hidden="true">→</span>';}
+    const hotspot=document.createElement('button'); hotspot.type='button'; hotspot.className='bag-hotspot'; hotspot.setAttribute('aria-label','Inspect suitcase with a small red ribbon on the handle'); hotspot.innerHTML='<span>INSPECT BAG</span><small>RED RIBBON ON HANDLE</small>'; hotspot.addEventListener('click',collectBag); game.append(hotspot);
+    if(!bagCollected){action.innerHTML='REMEMBER THE CHECK-IN <span aria-hidden="true">→</span>';}
     else {
       hotspot.classList.add('collected'); hotspot.textContent='YOUR BAG — COLLECTED'; hotspot.disabled=true;
-      objective.textContent='Carry the leather duffel into the arrivals hall.';
+      objective.textContent='Carry your suitcase into the arrivals hall.';
       action.innerHTML='ENTER MAIN ARRIVALS <span aria-hidden="true">→</span>';
     }
   }
@@ -264,7 +264,8 @@ function render(){
 
 function advance(){
   if(scenes[index].id==='airport'&&!bagCollected){
-    guideToHotspot('.bag-hotspot','The marked leather duffel is on the lower belt near the center. Select its LEATHER DUFFEL label to collect it.');
+    observation.hidden=false;
+    observation.textContent='Mom held up a little red ribbon. “Tie this to the handle—you will thank me later.” You laughed, but let her do it.';
     return;
   }
   if(scenes[index].id==='arrivals'&&!transportMode){openDesk();return;}
