@@ -1,5 +1,5 @@
 {
-  "name": "international-life-virtual-kyoto",
+  "name": "the-international-life-interface",
   "private": true,
   "scripts": {
     "test": "playwright test --config=playwright.config.js"

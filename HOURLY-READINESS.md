@@ -30,3 +30,22 @@ Two consecutive complete passes are required before the hourly loop may stop.
 - **Changed:** Gave the story transcript, source credits, course invitation, and information-desk dialogs accessible names tied to their visible headings; added regression assertions for all four names.
 - **Test result:** `node --check game.js` passed; Playwright readiness suite: 4/4 passed.
 - **Next weakness:** If refinement resumes, improve the baggage-hall illustration while preserving the now-proven backpack hotspot and mobile tap target.
+
+### 2026-08-15 12:34 EDT — Consequential tape branch checkpoint
+
+- **Verdict:** The cassette purchase is now a real two-city branch; city destinations are not yet both complete.
+- **Evidence:** Virtual Kyoto passed the full route at 1440×900 and Virtual Taipei passed at 390×844. Both deduct A$20 from the shared wallet, enter persistent tape inventory, preserve “Whole city in there,” return to the selected-tape console, and resolve to the matching threshold. Page-error and horizontal-overflow assertions were clean.
+- **Keyboard:** A role-based keyboard pass selected and bought Taipei with Enter, verified the bus-route balance changed from A$46 to A$26 exactly once, entered the matching threshold, and verified Arrow Right does not pass the disabled unfinished-course boundary.
+- **Boundary:** Kyoto links to the existing provisional course plan. Taipei stops at an explicitly unfinished city threshold; it is not represented as a completed course world.
+- **Test result:** `node --check game.js` passed; Playwright readiness suite: 8/8 passed.
+- **Next weakness:** Build coherent Kyoto and Taipei threshold/course pages from the common city template before claiming phase-one destination completion.
+
+### 2026-08-15 14:34 EDT — Both city thresholds connected
+
+- **Verdict:** Kyoto and Taipei now both cross from the purchased cassette into a coherent city-specific course destination.
+- **Branch evidence:** Kyoto retains its existing `course.html` destination. Taipei now reaches `taipei.html`, which reuses the common city-syllabus layout and `course.css` while supplying a Taipei question, encounters, resources/pathways, and next action.
+- **State evidence:** The selected branch is named in the HUD tape/destination fields, threshold copy, course-invitation kicker and link, and destination-page marker. The existing purchase lock still prevents swapping tapes or paying twice.
+- **Responsive routes:** The complete Kyoto route passed at 1440×900; the complete Taipei route passed at 390×844. Both continued through the course invitation and asserted the matching URL, city heading, branch marker, content sections, clean page-error capture, and no horizontal overflow.
+- **Keyboard:** The Taipei bus path preserved A$26 after the one-time cassette charge, opened the course invitation by keyboard, and entered the Taipei page with Enter.
+- **Test result:** `node --check game.js` passed; Playwright readiness suite: 8/8 passed.
+- **Honest boundary:** Course destinations are coherent provisional plans. Saved progress, field notes, bounded guides, and Sixth Tape automation remain later work.

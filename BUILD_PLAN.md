@@ -1,10 +1,10 @@
-# Virtual Kyoto — Vertical Slice Build Plan
+# The International Life — Phase-One Build Plan
 
-**Checkpoint:** August 14, 2026 — nine-scene narrative route, playable airport decision loop, and first Kyoto city-syllabus destination implemented.
+**Checkpoint:** August 15, 2026, 7:30 PM EDT — the complete Darwin route, consequential Kyoto/Taipei purchase, both city thresholds, and both city-syllabus destinations are implemented and verified.
 
 ## Outcome
 
-A shareable browser experience that turns the opening of *The International Life* into a short first-person travel game. The first playable route runs from an imagined late-1980s Darwin arrival to the scene Gibson actually wrote: Kelsey's second week in Australia, the unlicensed vendor, and the virtual-Kyoto cassette.
+A shareable browser experience that turns the opening of *The International Life* into a short first-person travel game. The playable route runs from an imagined late-1980s Darwin arrival to the scene Gibson actually wrote: Kelsey's second week in Australia and the unlicensed vendor. The student then makes a consequential purchase of Virtual Kyoto or Virtual Taipei and enters the matching provisional city syllabus.
 
 ## Source boundary
 
@@ -97,6 +97,26 @@ A shareable browser experience that turns the opening of *The International Life
 2. Decide whether the bounded local attendant is sufficient for class or should be backed by a dedicated server-side agent; never expose an API key in this static client.
 3. Replace the provisional console geometry with art that feels like late-1980s near-future domestic hardware without naming a brand or over-explaining Gibson's technology.
 4. Verify and deepen the Kyoto readings, films, study-abroad pathways, and Japan-specific academic resources.
-5. Extract the Kyoto page into a reusable city-template content structure before building Taipei, Manila, Stockholm, and Auckland–Otago.
+5. If more cities are added, extract the now-shared Kyoto/Taipei page structure into a data-driven template before building Manila, Stockholm, and Auckland–Otago.
 6. Add sound only where it carries place or story: airport belt, Darwin night, mall ambience, cassette click, the vendor's refrain, and Kyoto threshold.
 7. Decide whether the prototype should be hosted independently or embedded in the eventual course site.
+
+## City-threshold checkpoint — August 15, 14:34 EDT
+
+- Kyoto remains connected to the existing `course.html` plan.
+- Taipei now has a coherent `taipei.html` plan derived from the same semantic section structure and responsive `course.css` template.
+- The selected cassette is explicit in the threshold, invitation, destination URL, city heading, and destination-page branch marker.
+- Both pages provide the minimum phase-one course-world contract: city question, encounters, resources/pathways, and a clear next action.
+- Verification: `node --check game.js` passed; Playwright passed 8/8, including the complete Kyoto branch at 1440×900, complete Taipei branch at 390×844, keyboard entry into Taipei, page-error capture, and horizontal-overflow checks.
+
+## Final phase-one checkpoint — August 15, 7:30 PM EDT
+
+**Completion test: passed.** A first-time student can traverse the Darwin airport, choose a real transport route with a persistent wallet consequence, reach the Free Trade Zone, buy either Virtual Kyoto or Virtual Taipei, return to the console, enter the matching city, and see the course's next action. The four complete purchase paths passed at 1440×900 and 390×844, covering both tapes at both sizes.
+
+- `node --check game.js` — passed.
+- Playwright readiness suite — 10/10 passed from a clean local server, including both full branches at both viewports, keyboard purchase and city entry, one-time charging, alternative-fare persistence, reduced motion, dialog names, backtracking, page-error capture, and horizontal-overflow checks.
+- Human-rendered usability pass — completed at desktop and phone-emulation sizes; high-impact phone affordance and overlap issues were fixed before this checkpoint. See `USABILITY-CHECKPOINT.md`.
+- Final visual evidence — `evidence/2026-08-15-final/kyoto-desktop-next-action.png` and `evidence/2026-08-15-final/taipei-phone-next-action.png`, both inspected after capture.
+- Local review — documented in `README.md` with an absolute-path server command; <http://127.0.0.1:8765/> was live during the checkpoint.
+
+Explicit gaps: no physical-phone pass, no full screen-reader announcement pass, and no headphone judgment of the procedural audio. The Kyoto and Taipei pages are provisional course architectures rather than finalized readings or study-abroad advice. Saved progress, field notes, bounded guides, Sixth Tape automation, and external hosting remain outside phase one. Nothing was published externally.

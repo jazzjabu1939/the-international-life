@@ -1,11 +1,11 @@
-# Virtual Kyoto interface
+# The International Life interface
 
 ## Review locally
 
-From the workspace root:
+From any directory on this Mac:
 
 ```bash
-python3 -m http.server 8765 --directory teaching/international-life/interface
+python3 -m http.server 8765 --directory /Users/Jazz/.openclaw/workspace/teaching/international-life/interface
 ```
 
 Then open <http://127.0.0.1:8765/>.
@@ -38,6 +38,6 @@ At baggage claim, the normal Continue action remains locked until the student id
 
 At the brother's apartment above the bar, an original procedural soundtrack links two spaces on one continuous timeline. The bar combines a late-1980s-inspired kick, bass line, hi-hat, room noise, and indistinct crowd murmur. Upstairs, the same sound is quieter and heavily filtered through the floor. Putting in the earplugs mutes the bedroom; taking the house keys opens an optional visit to the bar below. At the bar, a bounded conversational bartender accepts typed questions and offers visible conversation starters; it runs locally so the static experience never depends on an external AI service. The student can also inspect the console, wired glasses, and gloves, but the cassette slot is empty. Reading the brother's note unlocks the separate walk-to-mall transition and changes the destination to the Darwin Free Trade Zone.
 
-At the vendor, choosing either decoy cassette deliberately blocks progression; select **VIRTUAL KYOTO** to enter Kelsey's console scene and the final Virtual Kyoto threshold.
+At the vendor, **VIRTUAL KYOTO** and **VIRTUAL TAIPEI** are equally real A$20 purchases. Selecting a handmade cassette reveals its physical label, buying it deducts from the same transport wallet, and the persistent tape inventory follows the student back to the console. The purchase locks the branch, so backtracking cannot swap tapes or charge the wallet twice. “Whole city in there” remains the vendor's refrain and returns at the console and city threshold.
 
-The final invitation links to `course.html`, the first implementation of the reusable city-syllabus destination. Its Kyoto content is provisional: it establishes the visual and information architecture while specific assigned readings, films, dates, and verified program links are finalized.
+Both cassette branches now cross a city-specific threshold and reach a provisional course destination built from the same city-syllabus template. Virtual Kyoto continues to `course.html`; Virtual Taipei continues to `taipei.html`. Each path names the selected cassette at the threshold invitation and again on the destination page, then presents a city question, six-part learning route, four encounters, resources/pathways, and a next-tape action.

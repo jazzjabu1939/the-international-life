@@ -1,17 +1,45 @@
 const { test, expect } = require('@playwright/test');
 
-for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`student route ${viewport.width}x${viewport.height}`, async ({ page }) => {
+async function reachVendor(page, mode = 'taxi') {
+  await page.getByRole('button', { name: /begin arrival/i }).click();
+  await page.getByRole('button', { name: /collect the tan leather duffel/i }).click();
+  await page.getByRole('button', { name: /enter main arrivals/i }).click();
+  await page.getByRole('button', { name: 'Open the airport information desk' }).click();
+  await page.getByRole('button', { name: new RegExp(mode, 'i') }).click();
+  await page.getByRole('button', { name: new RegExp(`take the ${mode}`, 'i') }).click();
+  await page.getByRole('button', { name: /arrive at the apartment/i }).click();
+  await page.getByRole('button', { name: /read your brother's note/i }).click();
+  await page.getByRole('button', { name: /walk to the mall/i }).click();
+  await page.getByRole('button', { name: /enter the free trade zone/i }).click();
+  await page.getByRole('button', { name: /approach the table/i }).click();
+}
+
+async function expectNoHorizontalOverflow(page) {
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  expect(overflow).toBe(false);
+}
+
+for (const { viewport, tape, tapeShort } of [
+  { viewport: { width: 1440, height: 900 }, tape: 'VIRTUAL KYOTO', tapeShort: 'KYOTO' },
+  { viewport: { width: 1440, height: 900 }, tape: 'VIRTUAL TAIPEI', tapeShort: 'TAIPEI' },
+  { viewport: { width: 390, height: 844 }, tape: 'VIRTUAL KYOTO', tapeShort: 'KYOTO' },
+  { viewport: { width: 390, height: 844 }, tape: 'VIRTUAL TAIPEI', tapeShort: 'TAIPEI' }
+]) {
+  test(`student route ${viewport.width}x${viewport.height} buys ${tape}`, async ({ page }) => {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.setViewportSize(viewport);
     await page.goto('http://127.0.0.1:4173');
+    await expectNoHorizontalOverflow(page);
     await page.getByRole('button', { name: /begin arrival/i }).click();
     await expect(page.getByText(/scan the panorama/i)).toBeVisible();
     await expect(page.locator('.scene--airport .environment')).toHaveCSS('background-image', /darwin-baggage-carousel\.webp/);
     await expect(page.locator('.decoy-hotspot')).toHaveCount(3);
     await page.getByRole('button', { name: /inspect dark suitcase/i }).click();
     await expect(page.getByText(/not yours/i)).toBeVisible();
+    await page.getByRole('button', { name: /show me the leather duffel/i }).click();
+    await expect(page.getByText(/select its leather duffel label/i)).toBeVisible();
+    await expect(page.locator('.bag-hotspot')).toBeFocused();
     await page.locator('.bag-hotspot').click();
     await expect(page.getByText('COLLECTED', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: /enter main arrivals/i })).toBeVisible();
@@ -31,6 +59,10 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await page.getByRole('button', { name: /arrive at the apartment/i }).click();
     await expect(page.getByRole('heading', { name: /brother's place/i })).toBeVisible();
     await expect(page.getByText(/sound: muffled through floor/i)).toBeVisible();
+    await page.getByRole('button', { name: /show me my brother/i }).click();
+    await expect(page.getByText(/select read note/i)).toBeVisible();
+    await expect(page.locator('.note-hotspot')).toBeFocused();
+    await expectNoHorizontalOverflow(page);
     expect(await page.locator('#game').evaluate(element => [element.scrollLeft, element.scrollTop])).toEqual([0, 0]);
     await page.getByRole('button', { name: /inspect the anonymous console/i }).click();
     await expect(page.getByText(/empty cassette slot/i)).toBeVisible();
@@ -60,19 +92,36 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     await page.getByRole('button', { name: /enter the free trade zone/i }).click();
     await expect(page.getByText("GIBSON'S STORY BEGINS HERE")).toBeVisible();
     await page.getByRole('button', { name: /approach the table/i }).click();
-    await page.getByRole('button', { name: 'VIRTUAL KYOTO', exact: true }).click();
-    await page.getByRole('button', { name: /buy the selected tape/i }).click();
+    await expectNoHorizontalOverflow(page);
+    await page.getByRole('button', { name: new RegExp(`^${tape},`, 'i') }).click();
+    await expect(page.locator('#observation')).toContainText(/whole city in there/i);
+    await page.getByRole('button', { name: new RegExp(`buy ${tape}`, 'i') }).click();
+    await expect(page.getByText('A$2', { exact: true })).toBeVisible();
+    await expect(page.getByText(tapeShort, { exact: true })).toBeVisible();
+    await expect(page.getByText(new RegExp(`${tape} goes into your bag`, 'i'))).toBeVisible();
+    await page.getByRole('button', { name: new RegExp(`return with ${tape}`, 'i') }).click();
     await expect(page.getByText('WHOLE CITY IN THERE', { exact: true }).first()).toBeVisible();
-    await page.getByRole('button', { name: /enter virtual kyoto/i }).click();
+    await expect(page.getByText(new RegExp(`slot ${tape} into the machine`, 'i'))).toBeVisible();
+    await page.getByRole('button', { name: new RegExp(`enter ${tape}`, 'i') }).click();
     await expect(page.getByText('WHOLE CITY IN THERE', { exact: true }).first()).toBeVisible();
-    await page.getByRole('button', { name: /open the city syllabus/i }).click();
+    if (tape === 'VIRTUAL TAIPEI') {
+      await expect(page.getByRole('heading', { name: /taipei signal/i })).toBeVisible();
+      await expect(page.getByText(/this is the taipei branch/i)).toBeVisible();
+    }
+    await page.getByRole('button', { name: new RegExp(`open the ${tapeShort} course plan`, 'i') }).click();
     await expect(page.getByRole('dialog', { name: 'Five tapes are waiting.' })).toBeVisible();
-    await page.getByRole('link', { name: /enter the city syllabus/i }).click();
-    await expect(page).toHaveURL(/course\.html$/);
-    await expect(page.getByRole('heading', { name: 'KYOTO', exact: true })).toBeVisible();
+    await expect(page.getByText(`SELECTED CASSETTE / ${tape}`, { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: new RegExp(`enter the ${tapeShort} city syllabus`, 'i') })).toBeVisible();
+    await page.getByRole('link', { name: new RegExp(`enter the ${tapeShort} city syllabus`, 'i') }).click();
+    await expect(page).toHaveURL(tapeShort === 'KYOTO' ? /course\.html$/ : /taipei\.html$/);
+    await expect(page.getByRole('heading', { name: tapeShort, exact: true })).toBeVisible();
+    await expect(page.getByText(`SELECTED BRANCH · ${tape}`, { exact: true })).toBeVisible();
+    await expect(page.getByText('01 / CITY QUESTION', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /four encounters with the city/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /build a real pathway/i })).toBeVisible();
+    await expect(page.getByText('05 / MAKE THE NEXT TAPE', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: /return to the international life home page/i }).first()).toBeVisible();
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
-    expect(overflow).toBe(false);
+    await expectNoHorizontalOverflow(page);
     expect(errors).toEqual([]);
   });
 }
@@ -91,6 +140,35 @@ test('reduced motion and keyboard safeguards', async ({ page }) => {
   await page.keyboard.press('ArrowLeft');
   await expect(page.locator('#information-desk')).toBeVisible();
   await expect(page.getByLabel('Ask a question')).toHaveValue('taxi?');
+});
+
+test('cassette choice and purchase are keyboard operable without double charging', async ({ page }) => {
+  await page.goto('http://127.0.0.1:4173');
+  await reachVendor(page, 'bus');
+  const taipeiTape = page.getByRole('button', { name: /^VIRTUAL TAIPEI,/i });
+  await taipeiTape.focus();
+  await page.keyboard.press('Enter');
+  await expect(taipeiTape).toHaveAttribute('aria-pressed', 'true');
+  const buy = page.getByRole('button', { name: /buy virtual taipei/i });
+  await buy.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText('A$26', { exact: true })).toBeVisible();
+  await expect(page.getByText('TAIPEI', { exact: true })).toBeVisible();
+  const purchasedTape = page.getByRole('button', { name: /^VIRTUAL TAIPEI,/i });
+  await expect(purchasedTape).toBeDisabled();
+  await page.getByRole('button', { name: /return with virtual taipei/i }).focus();
+  await page.keyboard.press('Enter');
+  await page.getByRole('button', { name: /enter virtual taipei/i }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('heading', { name: /taipei signal/i })).toBeVisible();
+  await page.getByRole('button', { name: /open the taipei course plan/i }).focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('dialog', { name: 'Five tapes are waiting.' })).toBeVisible();
+  await expect(page.getByText('SELECTED CASSETTE / VIRTUAL TAIPEI', { exact: true })).toBeVisible();
+  await page.getByRole('link', { name: /enter the taipei city syllabus/i }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/taipei\.html$/);
+  await expect(page.getByText('SELECTED BRANCH · VIRTUAL TAIPEI', { exact: true })).toBeVisible();
 });
 
 for (const route of [

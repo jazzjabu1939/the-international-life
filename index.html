@@ -42,6 +42,7 @@
     <aside class="travel-hud" id="travel-hud" hidden>
       <span>WALLET <strong id="wallet">A$50</strong></span>
       <span>BAG <strong id="bag-status">MISSING</strong></span>
+      <span>TAPE <strong id="tape-status">NONE</strong></span>
       <span>DESTINATION <strong id="destination-status">BROTHER'S APARTMENT</strong></span>
     </aside>
 
@@ -65,15 +66,16 @@
     <p class="dialog-kicker">SOURCE BOUNDARY</p>
     <h2 id="credits-title">What is imagined, and what is Gibson?</h2>
     <p>The airport, journey, brother's apartment, and walk to the mall form an imagined prologue. They are not presented as passages from William Gibson.</p>
-    <p>The mall, unlicensed vendor, scratched cassette, and Virtual Kyoto threshold adapt the Kelsey episode in William Gibson's <cite>Academy Leader</cite> (1991), published in <cite>Cyberspace: First Steps</cite>.</p>
+    <p>The mall, unlicensed vendor, scratched cassette, and virtual-city threshold adapt the Kelsey episode in William Gibson's <cite>Academy Leader</cite> (1991), published in <cite>Cyberspace: First Steps</cite>. Virtual Taipei is an original course branch, not a destination named in the story.</p>
     <p>This classroom prototype uses original code and abstract environment art. It quotes no extended passage from the story.</p>
   </dialog>
 
   <dialog id="course-door" class="course-door" aria-labelledby="course-door-title">
     <form method="dialog"><button class="close" aria-label="Close course invitation">×</button></form>
-    <p class="dialog-kicker">THE INTERNATIONAL LIFE / FALL 2026</p>
+    <p class="dialog-kicker" id="course-door-branch">SELECTED CASSETTE / VIRTUAL KYOTO</p>
     <h2 id="course-door-title">Five tapes are waiting.</h2>
-    <p>You entered through someone else's cassette. During the semester, each tape becomes a door into a real place, a real person, and a different way of paying attention.</p>
+    <p id="course-door-copy">Virtual Kyoto is open. You entered through someone else's cassette. During the semester, each tape becomes a door into a real place, a real person, and a different way of paying attention.</p>
+    <a class="course-link" id="course-link" href="course.html">ENTER THE KYOTO CITY SYLLABUS <span aria-hidden="true">→</span></a>
     <ol class="tape-list">
       <li><span>01</span><strong>Taipei ’85</strong><small>Beginning before you are ready</small></li>
       <li><span>02</span><strong>Manila ’86</strong><small>The forced adventure beginning</small></li>
@@ -82,7 +84,6 @@
       <li><span>05</span><strong>Auckland–Otago Road</strong><small>The virtue of quiet</small></li>
     </ol>
     <p class="sixth-tape"><span>06</span><strong>The final tape does not exist yet.</strong> You will find its person, enter its place, and make it.</p>
-    <a class="course-link" href="course.html">ENTER THE CITY SYLLABUS <span aria-hidden="true">→</span></a>
   </dialog>
 
   <dialog id="information-desk" class="information-desk" aria-labelledby="information-desk-title">
