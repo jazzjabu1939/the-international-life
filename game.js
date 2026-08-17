@@ -2,7 +2,7 @@ const scenes = [
   {id:'boot', place:'DARWIN / NORTHERN TERRITORY', date:'LATE 1980s', eye:'A COURSE ABOUT BEGINNING ELSEWHERE', title:'THE INTERNATIONAL<br>LIFE', copy:'Your journey begins in Darwin: an airport, a brother’s apartment, an anonymous mall, and a choice between whole cities hidden inside scratched cassettes.', button:'BEGIN ARRIVAL', objective:'Arrive before you understand the map.', observe:'Darwin is the beginning. The cassette will determine where the course opens next.', art:'<i class="sun"></i><i class="coast"></i><i class="plane"></i>'},
   {id:'airport', place:'DARWIN INTERNATIONAL AIRPORT', date:'DAY 01 / 18:42', eye:'IMAGINED PROLOGUE / INTERACTIVE', title:'FIND YOUR<br>BAG', copy:'At check-in in the U.S., you confirmed that you packed the bag yourself. Mom wanted to tie a small red ribbon to its handle. You told her that was silly—you would recognize your own luggage. Now the conveyor shudders into motion, carrying bag after nearly identical bag.', button:"REMEMBER MOM'S ADVICE", objective:'Identify your suitcase among the similar bags.', observe:'Arrival begins with a small panic: recognition is easy until the familiar appears in multiples.', art:'<i class="window"></i><i class="belt"></i><i class="luggage luggage-a"></i><i class="luggage luggage-b"></i><i class="luggage luggage-c"></i><i class="bag"></i><i class="sign">ARRIVALS</i><i class="belt-direction">LUGGAGE →</i>'},
   {id:'arrivals', place:'DARWIN AIRPORT / MAIN ARRIVALS', date:'DAY 01 / 18:51', eye:'TOO MUCH INFORMATION', title:'FIND<br>YOUR WAY', copy:'Signs compete with voices, fluorescent light, luggage carts, advertisements, and the warm dusk beyond the doors. Your brother left an address near the Esplanade. Somewhere in the room is a person you can ask how to reach it.', button:'FIND THE INFORMATION DESK', objective:'Locate the information desk.', observe:'Competence abroad often begins with admitting that you do not know what to do next.', art:''},
-  {id:'transit', place:'DARWIN / IN TRANSIT', date:'DAY 01 / 19:16', eye:'IN TRANSIT', title:'NO MAP<br>YET', copy:'Darwin passes in sodium light, palms, low buildings, and unfamiliar constellations.', button:'ARRIVE AT THE APARTMENT', objective:'Reach your brother’s apartment.', observe:'The route knows exactly where you are. You do not.', art:'<i class="road"></i><i class="mirror"></i><i class="lights"></i><i class="dash"></i>'},
+  {id:'transit', place:'DARWIN / IN TRANSIT', date:'DAY 01 / 19:16', eye:'IN TRANSIT / FIRST IMPRESSIONS', title:'READ THE<br>CITY', copy:'Darwin passes beyond the window in sodium light, palms, low buildings, and unfamiliar constellations.', button:'ARRIVE AT THE APARTMENT', objective:'Notice what the journey reveals on the way in.', observe:'A map can name the road. The window shows you the place.', art:''},
   {id:'condo', place:"BROTHER'S APARTMENT / ABOVE THE BAR", date:'DAY 01 / 23:47', eye:'THE MUSIC COMES THROUGH THE FLOOR', title:"BROTHER'S<br>PLACE", copy:'The apartment sits directly above a bar. Bass thumps through the floor while a huge palm-tree sign outside the window flashes green, then yellow. An old caged ceiling fan swivels back and forth with the nightclub dancers below. Sleep will require earplugs.', button:'LOOK AROUND THE ROOM', objective:'Find the earplugs—and why the console cannot start.', observe:'The fan turns, the palm flashes, and the bass arrives through the bedframe. The glamorous foreign night becomes less glamorous at midnight.', art:'<i class="blinds"></i><i class="fan"></i><i class="balcony"></i><i class="apartment-console"></i><i class="apartment-glasses"></i><i class="apartment-gloves"></i><i class="apartment-note"></i>'},
   {id:'bar', place:'THE BAR / ONE FLOOR BELOW', date:'DAY 01 / 23:51', eye:'THE SAME MUSIC / NO FLOOR BETWEEN YOU', title:'DOWNSTAIRS', copy:'The house keys open the stair door and the bedroom bass becomes the room itself. Men crowd the bar while Filipino women carry trays of beer. The tall red-haired bartender works the taps with easy authority. At the far end, an adult Filipina performer in a theatrical school-uniform costume dances on the small raised table area.', button:'RETURN UPSTAIRS', objective:'See what was keeping you awake.', observe:'Upstairs, the music was an annoyance without a source. Down here it is work, sociability, performance, loneliness, and someone else’s ordinary Saturday night.', art:''},
   {id:'walk', place:'THE ESPLANADE / ON FOOT', date:'DAY 01 / 20:02', eye:'WALK TO THE MALL', title:'HEAT AFTER<br>DARK', copy:'The distance looked short on your brother’s sketch. It is not. Humid air holds the day’s heat while traffic, palms, and licensed signs lead you toward the Darwin Free Trade Zone.', button:'ENTER THE FREE TRADE ZONE', objective:'Follow the hand-drawn route to the mall.', observe:'Walking reveals the scale that a map—and a taxi—conceals.', art:'<i class="walk-road"></i><i class="walk-lamps"></i><i class="mall-glow"></i><i class="mall-sign">FREE TRADE ZONE</i>'},
@@ -19,6 +19,7 @@ let purchasedTape = '';
 let bagCollected = false;
 let walletBalance = 50;
 let transportMode = '';
+let cityMapTaken = false;
 let mallDirectionsFound = false;
 let earplugsTaken = false;
 let audioContext=null, musicGain=null, musicFilter=null, crowdGain=null, musicTimer=null, soundtrackStep=0;
@@ -178,6 +179,7 @@ function render(){
   travelHud.hidden=!['airport','arrivals','transit','condo','bar','walk','mall','vendor','console','city'].includes(scene.id);
   $('#wallet').textContent=`A$${walletBalance}`;
   $('#bag-status').textContent=bagCollected?'COLLECTED':'MISSING';
+  $('#map-status').textContent=cityMapTaken?'CITY MAP':'NONE';
   tapeStatus.textContent=purchasedTape?purchasedTape.replace('VIRTUAL ',''):'NONE';
   destinationStatus.textContent=['condo','walk','mall','vendor'].includes(scene.id)?'DARWIN FREE TRADE ZONE':scene.id==='console'||scene.id==='city'?(purchasedTape||'CITY UNKNOWN'):"BROTHER'S APARTMENT";
   action.hidden=false; action.disabled=false;
@@ -208,7 +210,8 @@ function render(){
   }
   if(scene.id==='transit'&&transportMode){
     const labels={bus:'The bus pulls away with your wallet almost intact. One change and a final walk remain.',shuttle:'The shared shuttle waits for two more passengers, then turns toward the Esplanade.',taxi:'The taxi door closes and takes the direct road to your brother’s building. Comfort has a price.'};
-    copy.textContent=`${labels[transportMode]} Darwin passes in sodium light, palms, low buildings, and unfamiliar constellations. The fare leaves A$${walletBalance} in your wallet.`;
+    const mapLine=cityMapTaken?'The free city map lies open on your lap, naming roads that still mean nothing to you.':'You left the free map at the desk and watch for landmarks instead.';
+    copy.textContent=`${labels[transportMode]} ${mapLine} Darwin passes beyond the window in sodium light, palms, low buildings, and unfamiliar constellations. The fare leaves A$${walletBalance} in your wallet.`;
     place.textContent=transportMode==='taxi'?'STUART HIGHWAY / TAXI 27':transportMode==='shuttle'?'AIRPORT SHUTTLE / ROUTE 3':'PUBLIC BUS / CITYBOUND';
   }
   if(scene.id==='condo'){
@@ -323,6 +326,14 @@ $('#transport-options').addEventListener('click',event=>{
   transportMode=button.dataset.mode; walletBalance-=Number(button.dataset.cost); $('#wallet').textContent=`A$${walletBalance}`;
   [...$('#transport-options').children].forEach(option=>option.disabled=true);
   deskDialog.close(); objective.textContent=`Reach your brother’s apartment by ${transportMode}. A$${walletBalance} remains.`; action.innerHTML=`TAKE THE ${transportMode.toUpperCase()} <span aria-hidden="true">→</span>`;
+});
+$('#take-city-map').addEventListener('click',event=>{
+  cityMapTaken=!cityMapTaken;
+  event.currentTarget.setAttribute('aria-pressed',String(cityMapTaken));
+  event.currentTarget.innerHTML=cityMapTaken?'<b>CITY MAP TAKEN</b><small>Free · folded paper map</small>':'<b>TAKE A FREE CITY MAP</b><small>Optional · from the information desk</small>';
+  $('#map-status').textContent=cityMapTaken?'CITY MAP':'NONE';
+  deskChat.insertAdjacentHTML('beforeend',cityMapTaken?'<p><strong>Attendant:</strong> Here you are—a free Darwin city map. You may find it useful.</p>':'<p><strong>You:</strong> On second thought, I’ll leave the map for someone else.</p>');
+  deskChat.scrollTop=deskChat.scrollHeight;
 });
 deskDialog.addEventListener('click',event=>{if(event.target===deskDialog)deskDialog.close();});
 

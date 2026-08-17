@@ -22,3 +22,7 @@ These are original illustrative composites, not documentary depictions of a sing
 # Darwin main arrivals hall
 
 `darwin-arrivals-hall.webp` was generated August 14, 2026 with the built-in image-generation tool for the public-arrivals interaction. It depicts a visually dense late-1980s Darwin terminal with the information desk discoverable in the middle-right distance. The production prompt required period clothing, analog signage and technology, an approachable attendant, humid dusk, and no modern screens, contemporary brands, weapons, or watermarks. The selected PNG was converted locally to WebP at quality 82 (about 188 KB).
+
+# Darwin transit window
+
+`darwin-transit-window.webp` was generated August 17, 2026 with the built-in image-generation tool for the journey from Darwin Airport toward the city. It shows a plausible late-1980s tropical Darwin outskirts view through a moving vehicle window at humid blue-hour dusk: palms, low buildings, broad road, and sodium lights. The left third remains quiet for interface typography. The prompt excluded readable text, logos, modern screens and vehicles, landmarks, maps, and postcard or cyberpunk styling. The selected PNG was converted locally to WebP for the production page.

@@ -9,6 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/darwin-baggage-carousel.webp" as="image" type="image/webp">
   <link rel="preload" href="assets/darwin-arrivals-hall.webp" as="image" type="image/webp">
+  <link rel="preload" href="assets/darwin-transit-window.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -42,6 +43,7 @@
     <aside class="travel-hud" id="travel-hud" hidden>
       <span>WALLET <strong id="wallet">A$50</strong></span>
       <span>BAG <strong id="bag-status">MISSING</strong></span>
+      <span>MAP <strong id="map-status">NONE</strong></span>
       <span>TAPE <strong id="tape-status">NONE</strong></span>
       <span>DESTINATION <strong id="destination-status">BROTHER'S APARTMENT</strong></span>
     </aside>
@@ -95,6 +97,7 @@
       <label for="desk-question">Ask a question</label>
       <div><input id="desk-question" autocomplete="off" placeholder="What is the quickest way to the Esplanade?"><button type="submit">ASK</button></div>
     </form>
+    <button type="button" class="map-option" id="take-city-map" aria-pressed="false"><b>TAKE A FREE CITY MAP</b><small>Optional · from the information desk</small></button>
     <p class="fallback-label">Or choose after comparing the routes:</p>
     <div class="transport-options" id="transport-options">
       <button type="button" data-mode="bus" data-cost="4"><b>BUS / A$4</b><small>55 min · one change · short walk</small></button>

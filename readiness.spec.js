@@ -44,6 +44,8 @@ for (const { viewport, tape, tapeShort } of [
     await expect(page.getByRole('button', { name: /enter main arrivals/i })).toBeVisible();
     await page.getByRole('button', { name: /enter main arrivals/i }).click();
     await page.getByRole('button', { name: 'Open the airport information desk' }).click();
+    await page.getByRole('button', { name: /take a free city map/i }).click();
+    await expect(page.getByText('CITY MAP', { exact: true })).toBeVisible();
 
     await page.keyboard.press('ArrowRight');
     await expect(page.getByRole('dialog', { name: 'How can I help?' })).toBeVisible();
@@ -53,6 +55,9 @@ for (const { viewport, tape, tapeShort } of [
     await page.getByRole('button', { name: /taxi/i }).click();
     await expect(page.getByText('A$22', { exact: true })).toBeVisible();
     await page.getByRole('button', { name: /take the taxi/i }).click();
+    await expect(page.getByRole('heading', { name: /read the city/i })).toBeVisible();
+    await expect(page.locator('.scene--transit .environment')).toHaveCSS('background-image', /darwin-transit-window\.webp/);
+    await expect(page.getByText(/free city map lies open/i)).toBeVisible();
     await expect(page.getByText(/fare leaves A\$22/i)).toBeVisible();
 
     await page.getByRole('button', { name: /arrive at the apartment/i }).click();
