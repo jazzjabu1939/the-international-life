@@ -1,0 +1,77 @@
+.virtual-kyoto-entry {
+  position: relative;
+}
+
+.virtual-kyoto-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  gap: clamp(40px, 8vw, 110px);
+  align-items: start;
+}
+
+.virtual-kyoto-kicker {
+  margin: 0;
+  color: var(--rust);
+  font: 800 10px monospace;
+  letter-spacing: 0.16em;
+}
+
+.virtual-kyoto-entry h2 {
+  font-size: clamp(38px, 6vw, 76px);
+}
+
+.virtual-kyoto-copy > p {
+  font: 18px/1.6 Georgia, serif;
+}
+
+.virtual-kyoto-copy blockquote {
+  margin: 30px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 4px solid var(--rust);
+  font: italic 28px/1.3 Georgia, serif;
+}
+
+.gev-launch {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 17px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  font: 800 11px monospace;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+.gev-launch:hover,
+.gev-launch:focus-visible {
+  background: var(--rust);
+}
+
+.virtual-kyoto-copy > .gev-launch-note {
+  color: rgba(23, 32, 25, 0.78);
+  font-size: 14px;
+}
+
+.gev-observation-prompt {
+  margin-top: 28px;
+  padding: 22px;
+  border-top: 4px solid var(--rust);
+  background: #e3dcc8;
+}
+
+.gev-observation-prompt b {
+  color: var(--rust);
+  font: 800 10px monospace;
+  letter-spacing: 0.14em;
+}
+
+.gev-observation-prompt p {
+  margin-bottom: 0;
+  font: 16px/1.5 Georgia, serif;
+}
+
+@media (max-width: 720px) {
+  .virtual-kyoto-grid {
+    grid-template-columns: 1fr;
+  }
+}

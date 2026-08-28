@@ -11,7 +11,7 @@
 
 **What would it mean to build part of your life outside the United States?**
 
-When I was nineteen, I left the United States to study Chinese in Taiwan. I did not know exactly what I was doing. That decision changed the trajectory of my life. This seminar explores what happens when young people step outside familiar cultures, learn languages, navigate systems whose rules they do not yet understand, and grow through discomfort. We begin by opening five “tapes”—small entrances into real places and lives—and end with each student making the Sixth Tape.
+When I was nineteen, I left the United States to study Chinese in Taiwan. I did not know exactly what I was doing. That decision changed the trajectory of my life. This seminar explores what happens when young people step outside familiar cultures, learn languages, navigate systems whose rules they do not yet understand, and grow through discomfort. We begin by opening five “tapes”—small entrances into real places and lives—and end with each student making the Sixth Tape. **The Sixth Tape is the final assignment: each student chooses a city and adds a researched, human-centered tape of that city to the course.**
 
 This course will help you decide whether living abroad belongs in your life, identify realistic ways to make it possible during college, and develop practices for learning from a place rather than merely passing through it. You do not need prior international experience, and the course does not require you to commit to studying abroad.
 
@@ -23,6 +23,7 @@ By the end of the seminar, you will be able to:
 - locate and use UMass people, offices, and programs that can support language study, study abroad, internships, advising, and academic success;
 - participate constructively in discussion, peer response, reflective writing, and help-seeking;
 - map how a place is connected to people, institutions, objects, misunderstandings, and consequences;
+- interpret a digital map as a selective, mediated view of a place rather than the place itself;
 - develop a realistic Global Pathway Map addressing timing, academic fit, language preparation, funding questions, access, human advisers, and one next action;
 - use a six-part learning-abroad practice—prepare, enter, notice, interpret, reciprocate, and return—to approach unfamiliar places with humility and purpose;
 - describe and practice habits of attention, reflection, and balance that support sustainable ambition; and
@@ -44,18 +45,18 @@ The course uses a simple 100-point structure:
 - Human-source conversation — **15 points**
 - Final Sixth Tape — **20 points**
 
-There is no textbook purchase and no exam. The Sixth Tape may be a three-minute audio or video piece, a six-slide visual essay, or a one-page digital artifact. It must include one real human source, three specific details, and a short source note; it does not require sophisticated multimedia production.
+There is no textbook purchase and no exam. The Sixth Tape may be a three-minute audio or video piece, a six-slide visual essay, or a one-page digital artifact. It must include one real human source, three specific details, one realistic learning pathway, and a short source note; it does not require sophisticated multimedia production. Kyoto is our model: we move from a compelling map to history, ordinary institutions, study pathways, and the human knowledge the map cannot supply. Students then make that same move with a city of their own.
 
 ## Thirteen-meeting course arc
 
 | Week | Meeting | Primary FFYS practice |
 |---:|---|---|
-| 1 | **The Mall and the Tape** — Tape Card introductions and the course question | Make Connections |
-| 2 | **Tape 1: Taipei '85 — Beginning Before You Are Ready** | Demystify College |
-| 3 | **How College Works** — study-abroad routes, language, advising, funding questions, and the first Global Pathway Map | Demystify College |
-| 4 | **Tape 2: Manila '86 — The Forced Adventure Beginning** | Make Connections |
-| 5 | **What Everyone Sees—Except Me** — Johari Window, feedback, and help-seeking | Demystify College |
-| 6 | **Tape 3: Old Kyoto — The Discipline of Attention** | Maintain Balance |
+| 1 | **The Mall and the Tape** — syllabus, Tape Card introductions, the course question, and the Sixth Tape final assignment | Make Connections |
+| 2 | **Tape 1: Virtual Kyoto — The Map Is Not the Place** — use God’s Eye View, official sources, and study pathways to build our model tape | Maintain Balance |
+| 3 | **How College Works** — study-abroad routes, language, advising, funding, access, and the first Global Pathway Map | Demystify College |
+| 4 | **Tape 2: Taipei '85 — Beginning Before You Are Ready** | Demystify College |
+| 5 | **Tape 3: Manila '86 — The Forced Adventure Beginning** | Make Connections |
+| 6 | **What Everyone Sees—Except Me** — Johari Window, feedback, and help-seeking | Demystify College |
 | 7 | **Finding the Human Door** — campus resources and ethical interviewing | Make Connections |
 | 8 | **Tape 4: Stockholm — Trust Made Visible** — Sixth Tape pitch and pathway-feasibility revision | Make Connections |
 | 9 | **How Good Work Gets Made** — rubric, project stages, peer response, and appropriate AI use | Demystify College |
@@ -72,7 +73,22 @@ For smaller assignments, you may use two automatic 48-hour extensions during the
 
 Some meetings use an interactive website, but the opening experience is not an assessed test. A text transcript and accessible alternative provide the same participation credit. Laptops and phones will be useful during designated activities; during conversation, we will often put them away so that we can attend to one another.
 
+We will also use [God’s Eye View](https://github.com/bilawalsidhu/gods-eye-view), an open-source globe assembled from public and modeled data. It is an instructor-operated classroom instrument, not a surveillance assignment and not a source that speaks for a place. We will use it to ask what becomes visible through infrastructure and public signals, what remains absent, and why a human source can change the meaning of a map. No student account, API key, installation, or paid service is required. An accessible screenshot-and-transcript alternative will be provided for any activity that depends on the live interface.
+
+The first handoff occurs inside the course introduction. After Kelsey slots Virtual Kyoto into her brother’s anonymous console, Week 2 enters the curated **Old Kyoto** layer in God’s Eye View. The globe is treated as our provisional Virtual Kyoto: compelling enough to produce the feeling of access, incomplete enough to make mediation visible. Before opening an interpretive card, students record **observed / inferred / unknown / verify next**. We then add readings, a short film, official study pathways, and the human questions the globe cannot answer. This becomes the model students will adapt when they create the Sixth Tape of a city they choose.
+
 AI tools may help you brainstorm, organize, transcribe, translate, or edit when that assistance is acknowledged. They may not replace your human-source conversation, invent evidence or experience, or write your personal reflection. AI cannot have the encounter for you.
+
+## Langenkamp Dictionary and AI Resources
+
+The [Langenkamp Dictionary](https://langenkamp.io) is a public collection maintained by Professor Langenkamp with essays, terms, stories, and tools about AI, culture, education, institutions, and international life. We will use a few short selections as invitations to think—not as positions students are expected to adopt. One course reading, [Choice as a Precondition of Life Worth Living](https://langenkamp.io/vision/), helps frame the freedom to investigate an international path, including the freedom to decide that the path is not right for you now.
+
+For our limited and acknowledged uses of AI, two short entries are especially useful:
+
+- [Can't Help You Understand](https://langenkamp.io/entries/cant-help-you-understand/) — a tool can help with an artifact, but it cannot have the understanding or encounter for you.
+- [Proof of Learning](https://langenkamp.io/entries/proof-of-learning/) — your notes, conversation, choices, revisions, and explanation help show what you actually learned.
+
+Canvas will contain additional AI guidance, accessible alternatives, and practical resources. You will never be expected to purchase a paid AI subscription for this seminar.
 
 Your Global Pathway Map may end with a feasible next step or a thoughtful “not now.” Studying abroad is an opportunity to investigate, not an obligation or a measure of ambition.
 

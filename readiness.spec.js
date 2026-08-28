@@ -1,5 +1,14 @@
 const { test, expect } = require('@playwright/test');
 
+test('Kyoto course introduction hands Virtual Kyoto to the instructor-operated globe honestly', async ({ page }) => {
+  await page.goto('http://127.0.0.1:4173/course.html');
+  await expect(page.getByRole('heading', { name: /Kelsey puts on the glasses and gloves/i })).toBeVisible();
+  await expect(page.getByText(/Virtual Kyoto opens in class/i)).toBeVisible();
+  await expect(page.getByText(/Students do not need an account, API key, or installation/i)).toBeVisible();
+  await expect(page.getByText(/one thing the globe lets you observe/i)).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+});
+
 async function reachVendor(page, mode = 'taxi') {
   await page.getByRole('button', { name: /begin arrival/i }).click();
   await page.getByRole('button', { name: /small red ribbon/i }).click();
@@ -123,7 +132,8 @@ for (const { viewport, tape, tapeShort } of [
     await expect(page.getByText('01 / CITY QUESTION', { exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: /four encounters with the city/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: /build a real pathway/i })).toBeVisible();
-    await expect(page.getByText('05 / MAKE THE NEXT TAPE', { exact: true })).toBeVisible();
+    await expect(page.getByText(tapeShort === 'KYOTO' ? '06 / MAKE THE NEXT TAPE' : '05 / MAKE THE NEXT TAPE', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Sixth Tape is the final assignment/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /return to the international life home page/i }).first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
     expect(errors).toEqual([]);
