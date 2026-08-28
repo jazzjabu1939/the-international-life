@@ -317,7 +317,7 @@ $('#desk-form').addEventListener('submit',event=>{
   else if(/fast|quick|taxi/.test(q))answer='A taxi is the direct route to your brother’s apartment. It takes about 18 minutes, but costs A$28—more than half your cash.';
   else if(/shuttle/.test(q))answer='The shared shuttle is A$12 and takes about 35 minutes. It stops two blocks from the apartment.';
   else if(/safe|night|late/.test(q))answer='All three are reasonable this evening. The bus requires a change and a short walk; the shuttle stops nearby; the taxi goes to the door.';
-  else if(/brother|apartment|esplanade|where|how/.test(q))answer='The apartment is near the Esplanade. Bus A$4, shared shuttle A$12, or direct taxi A$28. You have A$50.';
+  else if(/brother|apartment|esplanade|where|how/.test(q))answer='The apartment is near the Esplanade. Bus A$4, shared shuttle A$12, or direct taxi A$28. Are you trying to save some money? If so, you might want to take the bus.';
   deskChat.insertAdjacentHTML('beforeend',`<p><strong>You:</strong> ${question.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</p><p><strong>Attendant:</strong> ${answer}</p>`); input.value=''; deskChat.scrollTop=deskChat.scrollHeight;
 });
 $('#transport-options').addEventListener('click',event=>{
