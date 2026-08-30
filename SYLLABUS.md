@@ -3,9 +3,7 @@
 **FFYS 191SOM5, Section 01 · Faculty First-Year Seminar**  
 **Instructor:** Professor Matthew D. Langenkamp · Isenberg School of Management  
 **Meeting:** Friday, 9:05–9:55 a.m. · Herter Hall 117  
-**Office hours and contact:** To be added before distribution
-
-> Working syllabus draft. The dated schedule, contact details, assignment sheets, grade scale, and current UMass policy link will be added before distribution through Canvas.
+**Contact:** mlangenkamp@umass.edu · Office hours posted in Canvas and available by appointment
 
 ## Our course question
 
@@ -47,23 +45,40 @@ The course uses a simple 100-point structure:
 
 There is no textbook purchase and no exam. The Sixth Tape may be a three-minute audio or video piece, a six-slide visual essay, or a one-page digital artifact. It must include one real human source, three specific details, one realistic learning pathway, and a short source note; it does not require sophisticated multimedia production. Kyoto is our model: we move from a compelling map to history, ordinary institutions, study pathways, and the human knowledge the map cannot supply. Students then make that same move with a city of their own.
 
-## Thirteen-meeting course arc
+## Grade scale
 
-| Week | Meeting | Primary FFYS practice |
-|---:|---|---|
-| 1 | **The Mall and the Tape** — syllabus, Tape Card introductions, the course question, and the Sixth Tape final assignment | Make Connections |
-| 2 | **Tape 1: Virtual Kyoto — The Map Is Not the Place** — use God’s Eye View, official sources, and study pathways to build our model tape | Maintain Balance |
-| 3 | **How College Works** — study-abroad routes, language, advising, funding, access, and the first Global Pathway Map | Demystify College |
-| 4 | **Tape 2: Taipei '85 — Beginning Before You Are Ready** | Demystify College |
-| 5 | **Tape 3: Manila '86 — The Forced Adventure Beginning** | Make Connections |
-| 6 | **What Everyone Sees—Except Me** — Johari Window, feedback, and help-seeking | Demystify College |
-| 7 | **Finding the Human Door** — campus resources and ethical interviewing | Make Connections |
-| 8 | **Tape 4: Stockholm — Trust Made Visible** — Sixth Tape pitch and pathway-feasibility revision | Make Connections |
-| 9 | **How Good Work Gets Made** — rubric, project stages, peer response, and appropriate AI use | Demystify College |
-| 10 | **Tape 5: Auckland–Otago Road — The Virtue of Quiet** | Maintain Balance |
-| 11 | **The Web of Connection** — source exchange and the learning-abroad cycle | Make Connections |
-| 12 | **The Cost of the International Life** — ambition, Buddhist philosophy, the Temple Pause, and a final-draft clinic | Maintain Balance |
-| 13 | **The Sixth Tape: Unlicensed Cargo** — gallery, next-action pathway map, and responsibility to a place | Make Connections |
+| Grade | Range |
+|---|---:|
+| A | 93–100 |
+| A− | 90–92 |
+| B+ | 87–89 |
+| B | 83–86 |
+| B− | 80–82 |
+| C+ | 77–79 |
+| C | 73–76 |
+| C− | 70–72 |
+| D+ | 67–69 |
+| D | 63–66 |
+| F | 0–62 |
+
+## Dated course schedule
+
+| Week | Date | Meeting | Primary FFYS practice |
+|---:|---|---|---|
+| 1 | Sept. 11 | **The Mall and the Tape** — syllabus, Tape Card introductions, the course question, and the Sixth Tape final assignment | Make Connections |
+| 2 | Sept. 18 | **Tape 1: Virtual Kyoto — The Map Is Not the Place** — use God’s Eye View, official sources, and study pathways to build our model tape | Maintain Balance |
+| 3 | Sept. 25 | **How College Works** — study-abroad routes, language, advising, funding, access, and the first Global Pathway Map | Demystify College |
+| 4 | Oct. 2 | **Tape 2: Taipei '85 — Beginning Before You Are Ready** | Demystify College |
+| 5 | Oct. 9 | **Tape 3: Manila '86 — The Forced Adventure Beginning** | Make Connections |
+| 6 | Oct. 16 | **What Everyone Sees—Except Me** — Johari Window, feedback, and help-seeking | Demystify College |
+| 7 | Oct. 23 | **Finding the Human Door** — campus resources and ethical interviewing | Make Connections |
+| 8 | Oct. 30 | **Tape 4: Stockholm — Trust Made Visible** — Sixth Tape pitch and pathway-feasibility revision | Make Connections |
+| 9 | Nov. 6 | **How Good Work Gets Made** — rubric, project stages, peer response, and appropriate AI use | Demystify College |
+| 10 | Nov. 13 | **Tape 5: Auckland–Otago Road — The Virtue of Quiet** | Maintain Balance |
+| 11 | Nov. 20 | **The Web of Connection** — source exchange and the learning-abroad cycle | Make Connections |
+| — | Nov. 27 | **No class — Thanksgiving recess** | — |
+| 12 | Dec. 4 | **The Cost of the International Life** — ambition, Buddhist philosophy, the Temple Pause, and a final-draft clinic | Maintain Balance |
+| 13 | Dec. 11 | **The Sixth Tape: Unlicensed Cargo** — gallery, next-action pathway map, and responsibility to a place | Make Connections |
 
 ## How we will work together
 
@@ -93,3 +108,19 @@ Canvas will contain additional AI guidance, accessible alternatives, and practic
 Your Global Pathway Map may end with a feasible next step or a thoughtful “not now.” Studying abroad is an opportunity to investigate, not an obligation or a measure of ambition.
 
 Readings will be brief and supplied through Canvas. Canvas remains the official home for announcements, materials, submissions, grades, the dated schedule, and university policy information. The interactive course opening is hosted separately and linked from Canvas so that it can use the full browser window.
+
+## Academic honesty
+
+Since the integrity of the academic enterprise of any institution of higher education requires honesty in scholarship and research, academic honesty is required of all students at the University of Massachusetts Amherst. Academic dishonesty is prohibited in all programs of the University. Academic dishonesty includes but is not limited to cheating, fabrication, plagiarism, and facilitating dishonesty. Appropriate sanctions may be imposed on any student who has committed an act of academic dishonesty. Students are expected to be familiar with the [UMass Academic Honesty Policy](https://www.umass.edu/dean_students/codeofconduct/acadhonesty/).
+
+## Disability accommodations
+
+The University of Massachusetts Amherst is committed to providing an equal educational opportunity for all students. If you have a documented physical, psychological, or learning disability on file with Disability Services, you may be eligible for reasonable academic accommodations to help you succeed in this course. If you have a documented disability that requires an accommodation, please notify me within the first two weeks of the semester so that we may make appropriate arrangements. For further information, visit [Disability Services](https://www.umass.edu/disability/).
+
+## Title IX
+
+In accordance with Title IX of the Education Amendments of 1972, UMass Amherst is committed to providing a safe learning environment for all students, free from discrimination including sexual assault, sexual harassment, domestic violence, dating violence, stalking, and retaliation, whether in person or online. Title IX also protects against discrimination related to pregnancy, childbirth, miscarriage, abortion, and related conditions. A summary of confidential and non-confidential campus resources is available from the [UMass Title IX Office](https://www.umass.edu/titleix/resources). Free and confidential support is available at all times through the SASA Hotline at **413-545-0800**.
+
+## Changes to the syllabus
+
+The schedule may change as the course develops. Significant changes will be announced in class and posted in Canvas.
